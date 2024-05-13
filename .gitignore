@@ -7,6 +7,3 @@
 
 # Testing:
 src/test
-
-# NPM ignore:
-.npmignore

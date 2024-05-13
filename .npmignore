@@ -1,0 +1,10 @@
+# Typescript files:
+src
+types/test
+tsconfig.json
+
+# Testing:
+dist/test
+
+# Git ignore:
+.gitignore

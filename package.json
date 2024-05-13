@@ -2,7 +2,7 @@
   "name": "clash.js",
   "version": "1.1.0-canary-1",
   "description": "A simple Node module that allows you to easily interact with the Clash of Clans API",
-  "main": "src",
+  "main": "dist",
 
   "scripts": {
     "prestart": "tsc.cmd -b",
@@ -17,7 +17,6 @@
   ],
 
   "types": "types",
-
   "author": "ryancundiff",
   "license": "MIT"
 }

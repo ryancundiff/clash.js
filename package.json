@@ -18,5 +18,10 @@
 
   "types": "types",
   "author": "ryancundiff",
-  "license": "MIT"
+  "license": "MIT",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryancundiff/clash.js.git"
+  }
 }

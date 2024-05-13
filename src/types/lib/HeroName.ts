@@ -1,0 +1,6 @@
+export type HeroName = 'Barbarian King'
+  | 'Archer Queen'
+  | 'Grand Warden'
+  | 'Battle Machine'
+  | 'Royal Champion'
+  | 'Bettle Copter'

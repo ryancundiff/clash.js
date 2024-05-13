@@ -1,0 +1,6 @@
+export type WarFrequency = 'always'
+  | 'never'
+  | 'unknown'
+  | 'less-than-once-per-week'
+  | 'once-per-week'
+  | 'more-than-once-per-week'

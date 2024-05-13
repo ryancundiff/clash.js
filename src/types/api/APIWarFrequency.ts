@@ -1,0 +1,6 @@
+export type APIWarFrequency = 'unknown'
+  | 'never'
+  | 'always'
+  | 'moreThanOncePerWeek'
+  | 'oncePerWeek'
+  | 'lessThanOncePerWeek'

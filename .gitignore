@@ -1,0 +1,12 @@
+# Node modules:
+/node_modules
+
+# Transpiled typescript file directory:
+/dist
+/types
+
+# Testing:
+src/test
+
+# NPM ignore:
+.npmignore

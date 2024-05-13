@@ -1,11 +1,12 @@
 import {
   APILeague,
-  IconURLs
+  IconURLs,
+  LeagueName
 } from '../types'
 
 export class League {
   /** Name of league. */
-  public name: string
+  public name: LeagueName
 
   /** ID of league. */
   public id: number
@@ -14,7 +15,7 @@ export class League {
   public iconURLs: Omit<IconURLs, 'large'>
 
   constructor (data: APILeague) {
-    this.name = data.name
+    this.name = data.name as LeagueName
     this.id = data.id
     this.iconURLs = data.iconUrls
   }

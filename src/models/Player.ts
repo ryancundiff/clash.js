@@ -390,6 +390,22 @@ export class Player {
   }
 
   /**
+   * Get label of given name from player, if set.
+   * @param labelName Name of label.
+  */
+  public getLabel (labelName: LabelName) {
+    if (this.labels) {
+      for (const label of this.labels) {
+        if (label.name == labelName) {
+          return label
+        }
+      }
+    }
+
+    return null
+  }
+
+  /**
    * Get troop of given name from player, if unlocked.
    * @param troopName Name of troop.
   */

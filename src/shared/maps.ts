@@ -18,6 +18,11 @@ export const warFrequencyMap = new Map([
   [ 'moreThanOncePerWeek', 'more-than-once-per-week' ]
 ])
 
-export const villageMap = new Map ([
+export const villageMap = new Map([
   [ 'builderBase', 'builder-base' ]
+])
+
+export const warStateMap = new Map([
+  [ 'inWar', 'in-war' ],
+  [ 'warEnded', 'war-ended' ]
 ])

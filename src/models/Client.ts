@@ -1,12 +1,14 @@
 import { Requester } from './Requester'
 import { Clan } from './Clan'
 import { Player } from './Player'
+import { War } from './War'
 
 import { resolveTag } from '../helpers'
 import { BASE_URL } from '../shared'
 
 import {
   APIClan,
+  APIClanWar,
   APIPlayer
 } from '../types'
 
@@ -27,7 +29,7 @@ export class Client {
   }
 
   /**
-   * Resolve player of given tag.
+   * Resolve player of given player tag.
    * @param playerTag Tag of player.
   */
   public async getPlayer (playerTag: string) {
@@ -41,7 +43,7 @@ export class Client {
   }
 
   /**
-   * Resolve clan of given tag.
+   * Resolve clan of given clan tag.
    * @param clanTag Tag of clan.
   */
   public async getClan (clanTag: string) {
@@ -54,9 +56,19 @@ export class Client {
     return null
   }
 
-  // public async getWarLog (clanTag: string) {
+  /**
+   * Resolve war of given clan tag, if in one.
+   * @param clanTag Tag of clan.
+  */
+  public async getWar (clanTag: string) {
+    const data = await this.requester.get(`${BASE_URL}/clans/${resolveTag(clanTag)}/currentwar`)
+  
+    if (data && (data as APIClanWar).state !== 'notInWar') {
+      return new War(this, data as APIClanWar)
+    }
 
-  // }
+    return null
+  }
 }
 
 interface ClientOptions {

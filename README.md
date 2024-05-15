@@ -62,7 +62,7 @@ import { Client } from 'clash.js'
     const barbarianKing = player.getHero('Barbarian King')
 ```
 
-> Look up a player's hero from their class object (parameter fully typed), or you could view a whole array of their heroes with `.heroes`.
+> Look up a player's hero from their class object (parameter fully typed), or you could view a whole array of their heroes with the `heroes` data member of `Player`.
 
 ```ts
     const playerClan = await player.getClan()
@@ -77,6 +77,33 @@ import { Client } from 'clash.js'
 ```
 
 > Look up a capital's district from it's class object (parameter fully typed).
+
+```ts
+  }
+
+  const clan = await client.getClan('#ABCDEFG')
+```
+
+> You can also get a clan by providing a clan tag to the `getClan` member function of `Client`.
+
+```ts
+  const war = await client.getWar('#ABCDEFG')
+```
+
+> You can get a clan's current war by providing a clan tag to the `getWar` member function of `Client`.
+
+```ts
+  if (war) {
+    const ally = war.ally
+    const allyMembers = ally.members
+    const enemy = war.enemy
+    const enemyMembers = enemy.members
+
+    const firstAllyMember = allyMembers[0]
+    const bestEnemyAttack = firstAllyMember.bestEnemyAttack
+```
+
+>> You can access members, attacks, and more with the `War` object.
 
 ```ts
   }

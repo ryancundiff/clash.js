@@ -10,6 +10,7 @@ import { Equipment } from './Equipment'
 import { League } from './League'
 import { BuilderBaseLeague } from './BuilderBaseLeague'
 import { Label } from './Label'
+import { Achievement } from './Achievement'
 
 import { getWithNameFromSet } from '../helpers'
 
@@ -52,6 +53,9 @@ export class Player {
 
   /** Array of player's labels. */
   public labels: Array<Label> | null
+
+  /** Array of player's achievements. */
+  public achievements: Array<Achievement>
 
   // League information:
 
@@ -153,6 +157,8 @@ export class Player {
     this.labels = data.labels.length > 0
       ? data.labels.map(data => new Label(data))
       : null
+
+    this.achievements = data.achievements.map(data => new Achievement(data))
 
     this.league = data.league
       ? new League(data.league)

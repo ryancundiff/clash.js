@@ -1,6 +1,7 @@
 import type { APIBuilderBaseLeague } from './APIBuilderBaseLeague'
 import type { APILabel } from './APILabel'
 import type { APILeague } from './APILeague'
+import { APIPlayerAchievementProgress } from './APIPlayerAchievementProgress'
 import type { APIPlayerClan } from './APIPlayerClan'
 import type { APIPlayerItemLevel } from './APIPlayerItemLevel'
 import { APIRole } from './APIRole'
@@ -35,10 +36,7 @@ export interface APIPlayer {
   builderBaseTrophies: number,
   bestBuilderBaseTrophies: number,
   warStars: number,
-
-  // TODO: Implement player achievements.
-  // achievements: APIPlayerAchievementProgressList,
-
+  achievements: Array<APIPlayerAchievementProgress>,
   clanCapitalContributions: number,
 
   // TODO: Implement player house.

@@ -33,7 +33,7 @@ export class Client {
    * @param playerTag Tag of player.
   */
   public async getPlayer (playerTag: string) {
-    const data = await this.requester.get(`${BASE_URL}/players/${resolveTag(playerTag)}`)
+    const data = await this.requester.get(`${BASE_URL}/players/${encodeURIComponent(resolveTag(playerTag))}`)
 
     if (data) {
       return new Player(this, data as APIPlayer)
@@ -47,7 +47,7 @@ export class Client {
    * @param clanTag Tag of clan.
   */
   public async getClan (clanTag: string) {
-    const data = await this.requester.get(`${BASE_URL}/clans/${resolveTag(clanTag)}`)
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(resolveTag(clanTag))}`)
   
     if (data) {
       return new Clan(this, data as APIClan)
@@ -61,7 +61,7 @@ export class Client {
    * @param clanTag Tag of clan.
   */
   public async getWar (clanTag: string) {
-    const data = await this.requester.get(`${BASE_URL}/clans/${resolveTag(clanTag)}/currentwar`)
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(resolveTag(clanTag))}/currentwar`)
   
     if (data && (data as APIClanWar).state !== 'notInWar') {
       return new War(this, data as APIClanWar)

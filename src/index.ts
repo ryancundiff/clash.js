@@ -1,9 +1,14 @@
 import { Client } from './models/Client'
-import { resolveTag } from './helpers'
+
+import {
+  isValidTag,
+  resolveTag
+} from './helpers'
 
 export default Client
 
 export {
   Client,
+  isValidTag,
   resolveTag
 }

@@ -1,5 +1,6 @@
 export * from './get'
 export * from './getWithNameFromSet'
+export * from './isValidTag'
 export * from './post'
 export * from './resolveDate'
 export * from './resolveTag'

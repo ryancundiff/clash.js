@@ -3,7 +3,7 @@ import { Clan } from './Clan'
 import { Player } from './Player'
 import { War } from './War'
 
-import { resolveTag } from '../helpers'
+import { isValidTag, resolveTag } from '../helpers'
 import { BASE_URL } from '../shared'
 
 import {
@@ -33,7 +33,13 @@ export class Client {
    * @param playerTag Tag of player.
   */
   public async getPlayer (playerTag: string) {
-    const data = await this.requester.get(`${BASE_URL}/players/${encodeURIComponent(resolveTag(playerTag))}`)
+    const tag = resolveTag(playerTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/players/${encodeURIComponent(tag)}`)
 
     if (data) {
       return new Player(this, data as APIPlayer)
@@ -47,7 +53,13 @@ export class Client {
    * @param clanTag Tag of clan.
   */
   public async getClan (clanTag: string) {
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(resolveTag(clanTag))}`)
+    const tag = resolveTag(clanTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}`)
   
     if (data) {
       return new Clan(this, data as APIClan)
@@ -61,7 +73,13 @@ export class Client {
    * @param clanTag Tag of clan.
   */
   public async getWar (clanTag: string) {
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(resolveTag(clanTag))}/currentwar`)
+    const tag = resolveTag(clanTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/currentwar`)
   
     if (data && (data as APIClanWar).state !== 'notInWar') {
       return new War(this, data as APIClanWar)

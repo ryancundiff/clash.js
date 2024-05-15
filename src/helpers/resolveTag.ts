@@ -4,5 +4,5 @@
  */
 export function resolveTag (tag: string) {
   // Credit: clashperk/clashofclans.js
-  return `#${tag.toUpperCase().replace(/[#]/g, '').replace(/[/s]/g, '').replace(/[O]/g, '0')}`
+  return `#${tag.toUpperCase().replace(/[#]/g, '').replace(/[\s]/g, '').replace(/[O]/g, '0')}`
 }

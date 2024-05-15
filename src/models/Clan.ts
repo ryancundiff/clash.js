@@ -196,7 +196,7 @@ export class Clan {
 
   /**
    * Check if clan's capital has district with given name.
-   * @param memberName Name of member.
+   * @param districtName Name of district.
   */
   public hasDistrict (districtName: DistrictName) {
     if (this.capital && this.capital.districts) {

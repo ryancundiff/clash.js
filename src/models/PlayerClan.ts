@@ -23,7 +23,7 @@ export class PlayerClan {
     this.level = data.clanLevel
   }
 
-  /** Resolve clan from player clan, if in one. */
+  /** Resolve clan from player clan. */
   public async getClan () {
     if (this.tag) {
       return await this.client.getClan(this.tag)

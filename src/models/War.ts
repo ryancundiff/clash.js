@@ -43,9 +43,6 @@ export class War {
     private client: Client,
     data: APIClanWar
   ) {
-    // REMOVE:
-    console.log(data)
-
     this.ally = new WarClan(client, data.clan)
     this.enemy = new WarClan(client, data.opponent)
     this.size = data.teamSize

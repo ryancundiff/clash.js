@@ -11,6 +11,7 @@ import { League } from './League'
 import { BuilderBaseLeague } from './BuilderBaseLeague'
 import { Label } from './Label'
 import { Achievement } from './Achievement'
+import { LegendStatistics } from './LegendStatistics'
 
 import { getWithNameFromSet } from '../helpers'
 
@@ -56,6 +57,9 @@ export class Player {
 
   /** Array of player's achievements. */
   public achievements: Array<Achievement>
+
+  /** Legend statistics of player. */
+  public legend: LegendStatistics | null
 
   // League information:
 
@@ -159,6 +163,10 @@ export class Player {
       : null
 
     this.achievements = data.achievements.map(data => new Achievement(data))
+
+    this.legend = data.legendStatistics
+      ? new LegendStatistics(data.legendStatistics)
+      : null
 
     this.league = data.league
       ? new League(data.league)

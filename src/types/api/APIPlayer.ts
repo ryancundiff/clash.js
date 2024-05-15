@@ -4,6 +4,7 @@ import type { APILeague } from './APILeague'
 import { APIPlayerAchievementProgress } from './APIPlayerAchievementProgress'
 import type { APIPlayerClan } from './APIPlayerClan'
 import type { APIPlayerItemLevel } from './APIPlayerItemLevel'
+import { APIPlayerLegendStatistics } from './APIPlayerLegendStatistics'
 import { APIRole } from './APIRole'
 
 export interface APIPlayer {
@@ -16,10 +17,7 @@ export interface APIPlayer {
   defenseWins:number,
   townHallLevel: number,
   townHallWeaponLevel: number,
-
-  // TODO: Implement legend statistics.
-  // legendStatistics: APIPlayerLegendStatistics,
-
+  legendStatistics: APIPlayerLegendStatistics,
   troops: Array<APIPlayerItemLevel>,
   heroes: Array<APIPlayerItemLevel>,
   heroEquipment: Array<APIPlayerItemLevel>,

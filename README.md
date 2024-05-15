@@ -98,12 +98,11 @@ import { Client } from 'clash.js'
     const allyMembers = ally.members
     const enemy = war.enemy
     const enemyMembers = enemy.members
-
     const firstAllyMember = allyMembers[0]
     const bestEnemyAttack = firstAllyMember.bestEnemyAttack
 ```
 
->> You can access members, attacks, and more with the `War` object.
+> You can access members, attacks, and more with the `War` object.
 
 ```ts
   }

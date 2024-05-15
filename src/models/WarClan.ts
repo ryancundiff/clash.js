@@ -44,4 +44,79 @@ export class WarClan {
     this.earned = data.expEarned ?? 0
     this.badgeURLs = data.badgeUrls
   }
+
+  /** Resolve clan from war clan. */
+  public async getClan () {
+    return await this.client.getClan(this.tag)
+  }
+
+  /**
+   * Check if clan has member with given tag in war.
+   * @param memberTag Tag of member.
+  */
+  public hasMember (memberTag: string) {
+    for (const member of this.members) {
+      if (member.tag == memberTag) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  /**
+   * Check if clan has member with given name in war.
+   * @param memberName Name of member.
+  */
+  public hasMemberByName (memberName: string) {
+    for (const member of this.members) {
+      if (member.name == memberName) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  /**
+   * Get member of given tag from clan, if in war.
+   * @param memberTag Tag of member.
+  */
+  public getMember (memberTag: string) {
+    for (const member of this.members) {
+      if (member.tag == memberTag) {
+        return member
+      }
+    }
+
+    return null
+  }
+
+  /**
+   * Get member of given name from clan, if in war.
+   * @param memberName Name of member.
+  */
+  public getMemberByName (memberName: string) {
+    for (const member of this.members) {
+      if (member.name == memberName) {
+        return member
+      }
+    }
+
+    return null
+  }
+
+  /**
+   * Get member at given position on war map.
+   * @param position Position on war map.
+  */
+  public getMemberByPosition (position: number) {
+    for (const member of this.members) {
+      if (member.position == position) {
+        return member
+      }
+    }
+
+    return null
+  }
 }

@@ -58,4 +58,93 @@ export class War {
     this.endDate = resolveDate(data.endTime)
     this.preparationDate = resolveDate(data.preparationStartTime)
   }
+
+  /** If war is in preparation. */
+  public get isPreparing () {
+    return this.state == 'preparation'
+  }
+
+  /** If war has started. */
+  public get isStarted () {
+    return this.state == 'in-war'
+  }
+
+  /** If war has ended. */
+  public get isEnded () {
+    return this.state == 'war-ended'
+  }
+
+  /** Resolve clan from ally war clan. */
+  public async getAllyClan () {
+    return await this.client.getClan(this.ally.tag)
+  }
+
+  /** Resolve clan from enemy war clan. */
+  public async getEnemyClan () {
+    return await this.client.getClan(this.enemy.tag)
+  }
+
+  /**
+   * Check if ally clan has member with given tag in war.
+   * @param memberTag Tag of member.
+  */
+  public hasAllyMember (memberTag: string) {
+    return this.ally.hasMember(memberTag)
+  }
+
+  /**
+   * Check if enemy clan has member with given tag in war.
+   * @param memberTag Tag of member.
+  */
+  public hasEnemyMember (memberTag: string) {
+    return this.enemy.hasMember(memberTag)
+  }
+
+  /**
+   * Check if ally clan has member with given name in war.
+   * @param memberName Name of member.
+  */
+  public hasAllyMemberByName (memberName: string) {
+    return this.ally.hasMemberByName(memberName)
+  }
+
+  /**
+   * Check if enemy clan has member with given name in war.
+   * @param memberName Name of member.
+  */
+  public hasEnemyMemberByName (memberName: string) {
+    return this.enemy.hasMemberByName(memberName)
+  }
+
+  /**
+   * Check if ally clan has member with given tag in war.
+   * @param memberTag Tag of member.
+  */
+  public getAllyMember (memberTag: string) {
+    return this.ally.getMember(memberTag)
+  }
+
+  /**
+   * Get member of given tag from enemy clan, if in war.
+   * @param memberTag Tag of member.
+  */
+  public getEnemyMember (memberTag: string) {
+    return this.enemy.getMember(memberTag)
+  }
+
+  /**
+   * Get member of given name from ally clan, if in war.
+   * @param memberName Name of member.
+  */
+  public getAllyMemberByName (memberName: string) {
+    return this.ally.getMemberByName(memberName)
+  }
+
+  /**
+   * Get member of given name from enemy clan, if in war.
+   * @param memberName Name of member.
+  */
+  public getEnemyMemberByName (memberName: string) {
+    return this.enemy.hasMemberByName(memberName)
+  }
 }

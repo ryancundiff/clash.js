@@ -31,4 +31,19 @@ export class WarAttack {
     this.destruction = data.destructionPercentage
     this.duration = data.duration
   }
+
+  /** If attack was a three star. */
+  public get isPerfect () {
+    return this.stars == 3
+  }
+
+  /** Resolve player from attacker. */
+  public async getAttacker () {
+    return await this.client.getPlayer(this.attackerTag)
+  }
+
+  /** Resolve player from defender. */
+  public async getDefender () {
+    return await this.client.getPlayer(this.defenderTag)
+  }
 }

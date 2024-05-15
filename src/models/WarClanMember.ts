@@ -44,4 +44,29 @@ export class WarClanMember {
       ? new WarAttack(client, data.bestOpponentAttack)
       : null
   }
+
+  /** If member has made attacks. */
+  public get hasAttacked () {
+    return this.attacks != null
+  }
+
+  /** If member has made a 3 star attack. */
+  public get hasPerfected () {
+    return this.attacks?.some(attack => attack.isPerfect) ?? false
+  }
+
+  /** If member has been attacked. */
+  public get isAttacked () {
+    return this.enemyAttacks > 0
+  }
+
+  /** If member has been 3 starred. */
+  public get isPerfected () {
+    return this.bestEnemyAttack?.isPerfect ?? false
+  }
+
+  /** Resolve player from war clan member. */
+  public async getPlayer () {
+    return await this.client.getPlayer(this.tag)
+  }
 }

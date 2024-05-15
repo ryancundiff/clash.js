@@ -152,18 +152,20 @@ export class Clan {
       : data.warFrequency as WarFrequency
     
     this.isWarLogPublic = data.isWarLogPublic
-
     this.warWinStreak = data.warWinStreak
     this.warWins = data.warWins ?? 0
     this.warTies = data.warTies ?? 0
     this.warLosses = data.warLosses ?? 0
-
     this.requiredTrophies = data.requiredTrophies
     this.requiredBuilderBaseTrophies = data.requiredBuilderBaseTrophies
     this.requiredTownHall = data.requiredTownhallLevel
     this.points = data.clanPoints
     this.builderBasePoints = data.clanBuilderBasePoints
     this.capitalPoints = data.clanCapitalPoints
+  }
+
+  public async getWar () {
+    return await this.client.getWar(this.tag)
   }
 
   /**

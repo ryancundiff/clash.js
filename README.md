@@ -19,6 +19,7 @@ A simple [Node.js](https://nodejs.org/en) module designed to streamline interact
 - **Fully object-oriented** for intuitive usage
 - **Predictable abstractions** for ease of development
 - **Fully typed with JSDoc specifications** for improved code quality and developer experience
+- **Automatic token creation and deletion** for if you don't have a static IP address.
 
 ## Getting Started
 

@@ -59,7 +59,7 @@ export class Player {
   public achievements: Array<Achievement>
 
   /** Legend statistics of player. */
-  public legend: LegendStatistics | null
+  public legendStatistics: LegendStatistics | null
 
   // League information:
 
@@ -164,7 +164,7 @@ export class Player {
 
     this.achievements = data.achievements.map(data => new Achievement(data))
 
-    this.legend = data.legendStatistics
+    this.legendStatistics = data.legendStatistics
       ? new LegendStatistics(data.legendStatistics)
       : null
 

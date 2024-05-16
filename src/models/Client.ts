@@ -87,6 +87,16 @@ export class Client {
 
     return null
   }
+
+  /**
+   * Resolve legend statistics of given player tag, if any.
+   * @param playerTag Tag of player.
+  */
+  public async getLegendStatistics (playerTag: string) {
+    const data = await this.getPlayer(playerTag)
+    
+    return data?.legendStatistics ?? null
+  }
 }
 
 interface ClientOptions {

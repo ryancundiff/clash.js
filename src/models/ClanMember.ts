@@ -1,6 +1,7 @@
 import { Client } from './Client'
 import { League } from './League'
 import { BuilderBaseLeague } from './BuilderBaseLeague'
+import { House } from './House'
 import { roleMap } from '../shared'
 
 import {
@@ -58,6 +59,9 @@ export class ClanMember {
   /** Current town hall level of clan member. */
   public townHall: number
 
+  /** House of clan member, if has one. */
+  public house: House | null
+
   constructor (
     private client: Client,
     data: APIClanMember
@@ -85,6 +89,10 @@ export class ClanMember {
     this.trophies = data.trophies
     this.builderBaseTrophies = data.builderBaseTrophies
     this.townHall = data.townHallLevel
+    
+    this.house = data.playerHouse
+      ? new House(data.playerHouse)
+      : null
   }
 
   /** Resolve player from clan member. */

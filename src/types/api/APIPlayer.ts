@@ -3,6 +3,7 @@ import type { APILabel } from './APILabel'
 import type { APILeague } from './APILeague'
 import { APIPlayerAchievementProgress } from './APIPlayerAchievementProgress'
 import type { APIPlayerClan } from './APIPlayerClan'
+import { APIPlayerHouse } from './APIPlayerHouse'
 import type { APIPlayerItemLevel } from './APIPlayerItemLevel'
 import { APIPlayerLegendStatistics } from './APIPlayerLegendStatistics'
 import { APIRole } from './APIRole'
@@ -36,7 +37,5 @@ export interface APIPlayer {
   warStars: number,
   achievements: Array<APIPlayerAchievementProgress>,
   clanCapitalContributions: number,
-
-  // TODO: Implement player house.
-  // playerHouse: APIPlayerHouse
+  playerHouse: APIPlayerHouse
 }

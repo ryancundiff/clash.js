@@ -12,6 +12,7 @@ import { BuilderBaseLeague } from './BuilderBaseLeague'
 import { Label } from './Label'
 import { Achievement } from './Achievement'
 import { LegendStatistics } from './LegendStatistics'
+import { House } from './House'
 
 import { getWithNameFromSet } from '../helpers'
 
@@ -150,6 +151,9 @@ export class Player {
   /** Array of equipment player has unlocked, if any. */
   public equipment: Array<Equipment> | null
 
+  /** House of player, if has one. */
+  public house: House | null
+
   constructor (
     private client: Client,
     data: APIPlayer
@@ -218,6 +222,10 @@ export class Player {
 
     this.equipment = data.heroEquipment
       ? data.heroEquipment.map(data => new Equipment(data))
+      : null
+
+    this.house = data.playerHouse
+      ? new House(data.playerHouse)
       : null
   }
 

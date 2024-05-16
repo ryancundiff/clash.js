@@ -164,6 +164,7 @@ export class Clan {
     this.capitalPoints = data.clanCapitalPoints
   }
 
+  /** Get current war of clan, if in one. */
   public async getWar () {
     return await this.client.getWar(this.tag)
   }

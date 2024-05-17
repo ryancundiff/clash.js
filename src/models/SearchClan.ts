@@ -20,7 +20,7 @@ import type {
 import { CapitalLeague } from './CapitalLeague'
 import { WarLeague } from './WarLeague'
 
-export class Clan {
+export class SearchClan {
   // General information:
 
   /** Name of clan. */
@@ -42,9 +42,6 @@ export class Clan {
 
   /** Current war league of clan. */
   public warLeague: WarLeague
-
-  /** Array of clan members. */
-  public members: Array<ClanMember>
 
   /** Type of clan. */
   public type: ClanType
@@ -123,7 +120,6 @@ export class Clan {
 
     this.capitalLeague = new CapitalLeague(data.capitalLeague)
     this.warLeague = new WarLeague(data.warLeague)
-    this.members = data.memberList.map(data => new ClanMember(client, data))
 
     this.type = clanTypeMap.has(data.type)
       ? clanTypeMap.get(data.type) as ClanType
@@ -164,37 +160,14 @@ export class Clan {
     this.capitalPoints = data.clanCapitalPoints
   }
 
+  /** Resolve clan from search clan. */
+  public async getClan () {
+    return await this.client.getClan(this.tag)
+  }
+
   /** Get current war of clan, if in one. */
   public async getWar () {
     return await this.client.getWar(this.tag)
-  }
-
-  /**
-   * Check if clan has member with given tag.
-   * @param memberTag Tag of member.
-  */
-  public hasMember (memberTag: string) {
-    for (const member of this.members) {
-      if (member.tag == memberTag) {
-        return true
-      }
-    }
-
-    return false
-  }
-
-  /**
-   * Check if clan has member with given name.
-   * @param memberName Name of member.
-  */
-  public hasMemberByName (memberName: string) {
-    for (const member of this.members) {
-      if (member.name == memberName) {
-        return true
-      }
-    }
-
-    return false
   }
 
   /**
@@ -211,34 +184,6 @@ export class Clan {
     }
 
     return false
-  }
-
-  /**
-   * Get member of given tag from clan.
-   * @param memberTag Tag of member.
-  */
-  public getMember (memberTag: string) {
-    for (const member of this.members) {
-      if (member.tag == memberTag) {
-        return member
-      }
-    }
-
-    return null
-  }
-
-  /**
-   * Get member of given name from clan.
-   * @param memberName Name of member.
-  */
-  public getMemberByName (memberName: string) {
-    for (const member of this.members) {
-      if (member.name == memberName) {
-        return member
-      }
-    }
-
-    return null
   }
 
   /**

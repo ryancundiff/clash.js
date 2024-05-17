@@ -2,6 +2,7 @@ import { Requester } from './Requester'
 import { Clan } from './Clan'
 import { Player } from './Player'
 import { War } from './War'
+import { SearchClan } from './SearchClan'
 
 import { isValidTag, resolveTag } from '../helpers'
 import { BASE_URL } from '../shared'
@@ -69,6 +70,27 @@ export class Client {
   }
 
   /**
+   * Search clans with given search options.
+   * @param searchOptions Options for searching clans.
+  */
+  public async getClans (searchOptions: ClanSearchOptions) {
+    const searchParams = new URLSearchParams()
+
+    for (const key in searchOptions) {
+      // @ts-expect-error
+      searchParams.set(key, searchOptions[key].toString())
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/clans?${searchParams.toString()}`)
+
+    if (data) {
+      return (data.items as Array<APIClan>).map(data => new SearchClan(this, data))
+    }
+
+    return null
+  }
+
+  /**
    * Resolve war of given clan tag, if in one.
    * @param clanTag Tag of clan.
   */
@@ -102,4 +124,15 @@ export class Client {
 interface ClientOptions {
   email: string,
   password: string
+}
+
+interface ClanSearchOptions {
+  name?: string,
+  warFrequency?: string,
+  locationID?: number,
+  minMembers?: number,
+  maxMembers?: number,
+  minClanPoints?: number,
+  minClanLevel?: number,
+  limit?: number
 }

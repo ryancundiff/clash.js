@@ -105,7 +105,7 @@ export class Requester {
         const tokens = await this.getTokens(cookie)
 
         // Delete last token.
-        this.deleteToken(cookie, tokens[0].id)
+        await this.deleteToken(cookie, tokens[0].id)
 
         return this.createToken(cookie, ipAddress)
       }

@@ -25,6 +25,21 @@ export class WarClanMember {
   /** Best enemy attack made against war clan member. */
   public bestEnemyAttack: WarAttack | null
 
+  /** Total destruction percentage of member's attacks. */
+  public destruction: number
+
+  /** If member has made attacks. */
+  public hasAttacked: boolean
+
+  /** If member has made a 3 star attack. */
+  public hasPerfected: boolean
+
+  /** If member has been attacked. */
+  public isAttacked: boolean
+
+  /** If member has been 3 starred. */
+  public isPerfected: boolean
+
   constructor (
     private client: Client,
     data: APIClanWarMember
@@ -43,26 +58,12 @@ export class WarClanMember {
     this.bestEnemyAttack = data.bestOpponentAttack
       ? new WarAttack(client, data.bestOpponentAttack)
       : null
-  }
 
-  /** If member has made attacks. */
-  public get hasAttacked () {
-    return this.attacks != null
-  }
-
-  /** If member has made a 3 star attack. */
-  public get hasPerfected () {
-    return this.attacks?.some(attack => attack.isPerfect) ?? false
-  }
-
-  /** If member has been attacked. */
-  public get isAttacked () {
-    return this.enemyAttacks > 0
-  }
-
-  /** If member has been 3 starred. */
-  public get isPerfected () {
-    return this.bestEnemyAttack?.isPerfect ?? false
+      this.destruction = this.attacks?.reduce((total, attack) => total + attack.destruction, 0) ?? 0
+      this.hasAttacked = this.attacks != null
+      this.hasPerfected = this.attacks?.some(attack => attack.isPerfect) ?? false
+      this.isAttacked = this.enemyAttacks > 0
+      this.isPerfected = this.bestEnemyAttack?.isPerfect ?? false
   }
 
   /** Resolve player from war clan member. */

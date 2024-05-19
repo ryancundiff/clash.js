@@ -3,6 +3,7 @@ import { Clan } from './Clan'
 import { Player } from './Player'
 import { War } from './War'
 import { SearchClan } from './SearchClan'
+import { WarLeagueGroup } from './WarLeagueGroup'
 
 import { isValidTag, resolveTag } from '../helpers'
 import { BASE_URL } from '../shared'
@@ -10,6 +11,7 @@ import { BASE_URL } from '../shared'
 import {
   APIClan,
   APIClanWar,
+  APIClanWarLeagueGroup,
   APIPlayer
 } from '../types'
 
@@ -105,6 +107,22 @@ export class Client {
   
     if (data && (data as APIClanWar).state !== 'notInWar') {
       return new War(this, data as APIClanWar)
+    }
+
+    return null
+  }
+
+  public async getWarLeagueGroup (clanTag: string) {
+    const tag = resolveTag(clanTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/currentwar/leaguegroup`)
+  
+    if (data) {
+      return new WarLeagueGroup(this, data as APIClanWarLeagueGroup)
     }
 
     return null

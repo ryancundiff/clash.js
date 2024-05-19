@@ -13,7 +13,7 @@ export class WarClan {
   /** Tag of war clan. */
   public tag: string
 
-  /** Members of war clan. */
+  /** Array of members in war clan. */
   public members: Array<WarClanMember>
 
   /** Current percentage of destruction made across all best attacks. */
@@ -28,7 +28,7 @@ export class WarClan {
   /** Amount of experience earned. */
   public earned: number
 
-  /** Record of icon URLs for war clan's badge */
+  /** Record of icon URLs for war clan's badge. */
   public badgeURLs: IconURLs
 
   constructor (

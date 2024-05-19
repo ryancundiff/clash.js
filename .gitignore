@@ -1,9 +1,9 @@
-# Node modules:
+# Node modules directory:
 /node_modules
 
-# Transpiled typescript file directory:
+# Transpiled JavaScript & type definition files:
 /dist
 /types
 
-# Testing:
+# Testing directory:
 src/test

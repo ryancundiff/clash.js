@@ -1,10 +1,12 @@
-# Typescript files:
+# TypeScript source directory:
 src
-types/test
+
+# TypeScript configuration file:
 tsconfig.json
 
-# Testing:
+# Testing directories:
 dist/test
+types/test
 
-# Git ignore:
+# Git ignore file:
 .gitignore

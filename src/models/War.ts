@@ -52,7 +52,7 @@ export class War {
 
     this.state = warStateMap.has(data.state)
       ? warStateMap.get(data.state) as WarState
-      : data.state as WarState ?? null
+      : data.state as WarState
 
     this.startDate = resolveDate(data.startTime)
     this.endDate = resolveDate(data.endTime)

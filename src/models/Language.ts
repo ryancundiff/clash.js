@@ -2,17 +2,17 @@ import { APILanguage } from '../types'
 
 export class Language {
   /** Name of language. */
-  public name: string
+  public readonly name: string
 
   /** ID of lanugage. */
-  public id: number
+  public readonly id: number
 
   /** Language code of language. */
-  public languageCode: string | null
+  public readonly code: string | null
 
   constructor (data: APILanguage) {
     this.id = data.id
     this.name = data.name
-    this.languageCode = data.languageCode
+    this.code = data.languageCode
   }
 }

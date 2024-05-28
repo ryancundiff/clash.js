@@ -10,28 +10,24 @@ import {
 
 export class Hero {
   /** Name of hero. */
-  public name: HeroName
+  public readonly name: HeroName
 
   /** Level of hero. */
-  public level: number
+  public readonly level: number
 
   /** Max level of hero. */
-  public maxLevel: number
-
-  /** If level of hero is max level. */
-  public isMaxLevel: boolean
+  public readonly maxLevel: number
 
   /** Which village hero belongs to. */
-  public village: Village
+  public readonly village: Village
 
   /** Array of equipment currently equipped by hero, if any. */
-  public equipment: Array<Equipment> | null
+  public readonly equipment: Array<Equipment> | null
 
   constructor (data: APIPlayerItemLevel) {
     this.name = data.name as HeroName
     this.level = data.level
     this.maxLevel = data.maxLevel
-    this.isMaxLevel = data.level == data.maxLevel
 
     this.village = villageMap.has(data.village)
       ? villageMap.get(data.village) as Village
@@ -42,14 +38,19 @@ export class Hero {
       : null
   }
 
+  /** If hero is max level. */
+  public get isMaxLevel () {
+    return this.level === this.maxLevel
+  }
+
   /**
    * Get equipment currently equipped by hero of given name, if any.
    * @param equipmentName Name of equipment.
-   */
+  */
   public getEquipment (equipmentName: EquipmentName) {
     if (this.equipment) {
       for (const equipment of this.equipment) {
-        if (equipment.name == equipmentName) {
+        if (equipment.name === equipmentName) {
           return equipment
         }
       }

@@ -15,9 +15,6 @@ export class Troop {
   /** Max level of troop. */
   public maxLevel: number
 
-  /** If level of troop is max level. */
-  public isMaxLevel: boolean
-
   /** Which village troop belongs to. */
   public village: Village
 
@@ -25,10 +22,14 @@ export class Troop {
     this.name = data.name
     this.level = data.level
     this.maxLevel = data.maxLevel
-    this.isMaxLevel = data.level == data.maxLevel
 
     this.village = villageMap.has(data.village)
       ? villageMap.get(data.village) as Village
       : data.village as Village
+  }
+
+  /** If troop is max level. */
+  public get isMaxLevel () {
+    return this.level === this.maxLevel
   }
 }

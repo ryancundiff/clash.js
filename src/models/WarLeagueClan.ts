@@ -8,19 +8,19 @@ import {
 
 export class WarLeagueClan {
   /** Name of war league clan. */
-  public name: string
+  public readonly name: string
 
   /** Tag of war league clan. */
-  public tag: string
+  public readonly tag: string
 
   /** Level of war league clan. */
-  public level: number
+  public readonly level: number
 
   /** Array of members in war league clan. */
-  public members: Array<WarLeagueClanMember>
+  public readonly members: Array<WarLeagueClanMember>
 
   /** Record of icon URLs for war league clan's badge. */
-  public badgeUrls: IconURLs
+  public readonly badgeUrls: IconURLs
 
   constructor(
     private client: Client,

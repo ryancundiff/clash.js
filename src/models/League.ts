@@ -6,13 +6,13 @@ import {
 
 export class League {
   /** Name of league. */
-  public name: LeagueName
+  public readonly name: LeagueName
 
   /** ID of league. */
-  public id: number
+  public readonly id: number
 
   /** Record of icon URLs. */
-  public iconURLs: Omit<IconURLs, 'large'>
+  public readonly iconURLs: Omit<IconURLs, 'large'>
 
   constructor (data: APILeague) {
     this.name = data.name as LeagueName

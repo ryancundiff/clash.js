@@ -10,57 +10,47 @@ import {
 } from '../types'
 
 export class ClanMember {
-  // General information:
-
   /** Name of clan member. */
-  public name: string
+  public readonly name: string
 
   /** Tag of clan member. */
-  public tag: string
+  public readonly tag: string
 
   /** Level of clan member. */
-  public level: number
-
-  // League information:
+  public readonly level: number
 
   /** Current league of clan member. */
-  public league: League | null
+  public readonly league: League | null
 
   /** Current builder base league of clan member. */
-  public builderBaseLeague: BuilderBaseLeague | null
-
-  // Clan information:
+  public readonly builderBaseLeague: BuilderBaseLeague | null
 
   /** Current role of clan member in clan. */
-  public role: Role
+  public readonly role: Role
 
   /** Current rank of clan member in clan. */
-  public rank: number
+  public readonly rank: number
 
   /** Previous rank of clan member in clan. */
-  public previousRank: number
+  public readonly previousRank: number
 
   /** Amount of troops donated by clan member. */
-  public troopsDonated: number
+  public readonly troopsDonated: number
 
   /** Amount of troops received by clan member */
-  public troopsReceived: number
-
-  // Trophy information:
+  public readonly troopsReceived: number
 
   /** Amount of trophies clan member has earned. */
-  public trophies: number
+  public readonly trophies: number
 
   /** Amount of builder base trophies clan member has earned. */
-  public builderBaseTrophies: number
-
-  // Town hall information:
+  public readonly builderBaseTrophies: number
 
   /** Current town hall level of clan member. */
-  public townHall: number
+  public readonly townHall: number
 
   /** House of clan member, if has one. */
-  public house: House | null
+  public readonly house: House | null
 
   constructor (
     private client: Client,

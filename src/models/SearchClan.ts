@@ -21,90 +21,74 @@ import { CapitalLeague } from './CapitalLeague'
 import { WarLeague } from './WarLeague'
 
 export class SearchClan {
-  // General information:
-
   /** Name of clan. */
-  public name: string
+  public readonly name: string
 
   /** Tag of clan. */
-  public tag: string
+  public readonly tag: string
 
   /** Level of clan. */
-  public level: number
+  public readonly level: number
 
   /** Array of clan's labels. */
-  public labels: Array<Label> | null
-
-  // League information:
+  public readonly labels: Array<Label> | null
 
   /** Current capital league of clan. */
-  public capitalLeague: CapitalLeague
+  public readonly capitalLeague: CapitalLeague
 
   /** Current war league of clan. */
-  public warLeague: WarLeague
+  public readonly warLeague: WarLeague
 
   /** Type of clan. */
-  public type: ClanType
-
-  /** Description of clan. */
-  public description: string | null
+  public readonly type: ClanType
 
   /** Location of clan. */
-  public location: Location | null
+  public readonly location: Location | null
 
   /** Language of clan. */
-  public language: Language | null
+  public readonly language: Language | null
 
   /** If clan is family friendly. */
-  public isFamilyFriendly: boolean
-
-  /** Clan capital of clan, if has one. */
-  public capital: Capital | null
+  public readonly isFamilyFriendly: boolean
 
   /** Record of icon URLs for clan's badge. */
-  public badgeURLs: Omit<IconURLs, 'tiny'>
-
-  // War information:
+  public readonly badgeURLs: Omit<IconURLs, 'tiny'>
 
   /** War frequency of clan. */
-  public warFrequency: WarFrequency
+  public readonly warFrequency: WarFrequency
 
   /** If clan's war log is public. */
-  public isWarLogPublic: boolean
+  public readonly isWarLogPublic: boolean
 
   /** Current streak of clan's war wins. */
-  public warWinStreak: number
+  public readonly warWinStreak: number
 
   /** Amount of clan's war wins. */
-  public warWins: number
+  public readonly warWins: number
 
   /** Amount of clan's war ties. */
-  public warTies: number
+  public readonly warTies: number
 
   /** Amount of clan's war losses. */
-  public warLosses: number
-
-  // Required information:
+  public readonly warLosses: number
 
   /** Required amount of trophies to join clan. */
-  public requiredTrophies: number
+  public readonly requiredTrophies: number
 
   /** Required amount of builder base trophies to join clan. */
-  public requiredBuilderBaseTrophies: number
+  public readonly requiredBuilderBaseTrophies: number
 
   /** Required town hall level to join clan. */
-  public requiredTownHall: number
-
-  // Point information:
+  public readonly requiredTownHall: number
 
   /** Amount of clan points. */
-  public points: number
+  public readonly points: number
 
   /** Amount of clan builder base points. */
-  public builderBasePoints: number
+  public readonly builderBasePoints: number
 
   /** Amount of clan capital points. */
-  public capitalPoints: number
+  public readonly capitalPoints: number
 
   constructor (
     private client: Client,
@@ -124,8 +108,6 @@ export class SearchClan {
     this.type = clanTypeMap.has(data.type)
       ? clanTypeMap.get(data.type) as ClanType
       : data.type as ClanType ?? null
-    
-    this.description = data.description ?? null
 
     this.location = Object.keys(data.location ?? {}).length > 0
       ? new Location(data.location)
@@ -136,10 +118,6 @@ export class SearchClan {
       : null
 
     this.isFamilyFriendly = data.isFamilyFriendly
-
-    this.capital = Object.keys(data.clanCapital ?? {}).length > 0
-      ? new Capital(data.clanCapital)
-      : null
 
     this.badgeURLs = data.badgeUrls
     
@@ -168,37 +146,5 @@ export class SearchClan {
   /** Get current war of clan, if in one. */
   public async getWar () {
     return await this.client.getWar(this.tag)
-  }
-
-  /**
-   * Check if clan's capital has district with given name.
-   * @param districtName Name of district.
-  */
-  public hasDistrict (districtName: DistrictName) {
-    if (this.capital && this.capital.districts) {
-      for (const district of this.capital.districts) {
-        if (district.name == districtName) {
-          return true
-        }
-      }
-    }
-
-    return false
-  }
-
-  /**
-   * Get district of given name from clan's capital, if unlocked.
-   * @param districtName Name of district.
-  */
-  public getDistrict (districtName: string) {
-    if (this.capital && this.capital.districts) {
-      for (const district of this.capital.districts) {
-        if (district.name == districtName) {
-          return district
-        }
-      }
-    }
-
-    return null
   }
 }

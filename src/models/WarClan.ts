@@ -8,28 +8,28 @@ import {
 
 export class WarClan {
   /** Name of war clan. */
-  public name: string
+  public readonly name: string
 
   /** Tag of war clan. */
-  public tag: string
+  public readonly tag: string
 
   /** Array of members in war clan. */
-  public members: Array<WarClanMember>
+  public readonly members: Array<WarClanMember>
 
   /** Current percentage of destruction made across all best attacks. */
-  public destruction: number
+  public readonly destruction: number
 
   /** Amount of stars earned across all best attacks. */
-  public stars: number
+  public readonly stars: number
 
   /** Current amount of attacks made. */
-  public attacks: number
+  public readonly attacks: number
 
   /** Amount of experience earned. */
-  public earned: number
+  public readonly earned: number
 
   /** Record of icon URLs for war clan's badge. */
-  public badgeURLs: IconURLs
+  public readonly badgeURLs: IconURLs
 
   constructor (
     private client: Client,

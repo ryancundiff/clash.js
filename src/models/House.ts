@@ -7,7 +7,7 @@ import {
 
 export class House {
   /** Array of house elements. */
-  public elements: Array<HouseElement>
+  public readonly elements: Array<HouseElement>
 
   constructor (data: APIPlayerHouse) {
     this.elements = data.elements.map(data => new HouseElement(data))

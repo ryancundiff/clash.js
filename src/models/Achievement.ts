@@ -7,25 +7,25 @@ import {
 
 export class Achievement {
     /** Name of achievement. */
-    public name: string
+    public readonly name: string
 
     /** Amount of stars earned. */
-    public stars: number
+    public readonly stars: number
 
     /** Current value of achievement. */
-    public value: number
+    public readonly value: number
 
     /** Target value of achievement. */
-    public target: number
+    public readonly target: number
 
     /** Information about achievement. */
-    public info: string
+    public readonly info: string
 
     /** Information about completion of achievement. */
-    public completion: string
+    public readonly completion: string
 
     /** Village of achievement. */
-    public village: string
+    public readonly village: Village
 
     constructor (data: APIPlayerAchievementProgress) {
         this.stars = data.stars

@@ -10,34 +10,34 @@ import {
 
 export class War {
   /** Ally clan of war. */
-  public ally: WarClan
+  public readonly ally: WarClan
 
   /** Enemy clan of war. */
-  public enemy: WarClan
+  public readonly enemy: WarClan
 
   /** Size of team on each side of war. */
-  public size: number
+  public readonly size: number
 
   /** Amount of attacks per member. */
-  public attacksPerMember: number
+  public readonly attacksPerMember: number
 
   /** Current amount of attacks made in war. */
-  public attacks: number
+  public readonly attacks: number
 
   /** Maximum amount of attacks that can be made in war. */
-  public maxAttacks: number
+  public readonly maxAttacks: number
 
   /** Current state of war. */
-  public state: WarState
+  public readonly state: WarState
 
   /** Date of when the war starts. */
-  public startDate: Date
+  public readonly startDate: Date
 
   /** Date of when the war ends. */
-  public endDate: Date
+  public readonly endDate: Date
 
   /** Date of when the war preparation starts. */
-  public preparationDate: Date
+  public readonly preparationDate: Date
 
   constructor (
     private client: Client,
@@ -60,27 +60,27 @@ export class War {
   }
 
   /** If war is in preparation. */
-  public get isPreparing () {
+  public get inPreparation () {
     return this.state == 'preparation'
   }
 
   /** If war has started. */
-  public get isStarted () {
+  public get hasStarted () {
     return this.state == 'in-war'
   }
 
   /** If war has ended. */
-  public get isEnded () {
+  public get hasEnded () {
     return this.state == 'war-ended'
   }
 
   /** Resolve clan from ally war clan. */
-  public async getAllyClan () {
+  public async getAlly () {
     return await this.client.getClan(this.ally.tag)
   }
 
   /** Resolve clan from enemy war clan. */
-  public async getEnemyClan () {
+  public async getEnemy () {
     return await this.client.getClan(this.enemy.tag)
   }
 

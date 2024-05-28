@@ -8,28 +8,29 @@ import {
 
 export class Spell {
   /** Name of spell. */
-  public name: SpellName
+  public readonly name: SpellName
 
   /** Level of spell. */
-  public level: number
+  public readonly level: number
 
   /** Max level of spell. */
-  public maxLevel: number
-
-  /** If level of spell is max level. */
-  public isMaxLevel: boolean
+  public readonly maxLevel: number
 
   /** Which village spell belongs to. */
-  public village: Village
+  public readonly village: Village
 
   constructor (data: APIPlayerItemLevel) {
     this.name = data.name as SpellName
     this.level = data.level
     this.maxLevel = data.maxLevel
-    this.isMaxLevel = data.level == data.maxLevel
 
     this.village = villageMap.has(data.village)
       ? villageMap.get(data.village) as Village
       : data.village as Village
+  }
+
+  /** If spell is max level. */
+  public get isMaxLevel () {
+    return this.level === this.maxLevel
   }
 }

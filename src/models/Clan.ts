@@ -4,6 +4,8 @@ import { Location } from './Location'
 import { Language } from './Language'
 import { Capital } from './Capital'
 import { Label } from './Label'
+import { CapitalLeague } from './CapitalLeague'
+import { WarLeague } from './WarLeague'
 
 import {
   clanTypeMap,
@@ -17,97 +19,85 @@ import type {
   IconURLs,
   WarFrequency
 } from '../types'
-import { CapitalLeague } from './CapitalLeague'
-import { WarLeague } from './WarLeague'
 
 export class Clan {
-  // General information:
-
   /** Name of clan. */
-  public name: string
+  public readonly name: string
 
   /** Tag of clan. */
-  public tag: string
+  public readonly tag: string
 
   /** Level of clan. */
-  public level: number
+  public readonly level: number
 
   /** Array of clan's labels. */
-  public labels: Array<Label> | null
-
-  // League information:
+  public readonly labels: Array<Label> | null
 
   /** Current capital league of clan. */
-  public capitalLeague: CapitalLeague
+  public readonly capitalLeague: CapitalLeague
 
   /** Current war league of clan. */
-  public warLeague: WarLeague
+  public readonly warLeague: WarLeague
 
   /** Array of clan members. */
-  public members: Array<ClanMember>
+  public readonly members: Array<ClanMember>
 
   /** Type of clan. */
-  public type: ClanType
+  public readonly type: ClanType
 
   /** Description of clan. */
-  public description: string | null
+  public readonly description: string | null
 
   /** Location of clan. */
-  public location: Location | null
+  public readonly location: Location | null
 
   /** Language of clan. */
-  public language: Language | null
+  public readonly language: Language | null
 
   /** If clan is family friendly. */
-  public isFamilyFriendly: boolean
+  public readonly isFamilyFriendly: boolean
 
   /** Clan capital of clan, if has one. */
-  public capital: Capital | null
+  public readonly capital: Capital | null
 
   /** Record of icon URLs for clan's badge. */
-  public badgeURLs: Omit<IconURLs, 'tiny'>
-
-  // War information:
+  public readonly badgeURLs: Omit<IconURLs, 'tiny'>
 
   /** War frequency of clan. */
-  public warFrequency: WarFrequency
+  public readonly warFrequency: WarFrequency
 
   /** If clan's war log is public. */
-  public isWarLogPublic: boolean
+  public readonly isWarLogPublic: boolean
 
   /** Current streak of clan's war wins. */
-  public warWinStreak: number
+  public readonly warWinStreak: number
 
   /** Amount of clan's war wins. */
-  public warWins: number
+  public readonly warWins: number
 
   /** Amount of clan's war ties. */
-  public warTies: number
+  public readonly warTies: number
 
   /** Amount of clan's war losses. */
-  public warLosses: number
-
-  // Required information:
+  public readonly warLosses: number
 
   /** Required amount of trophies to join clan. */
-  public requiredTrophies: number
+  public readonly requiredTrophies: number
 
   /** Required amount of builder base trophies to join clan. */
-  public requiredBuilderBaseTrophies: number
+  public readonly requiredBuilderBaseTrophies: number
 
   /** Required town hall level to join clan. */
-  public requiredTownHall: number
-
-  // Point information:
+  public readonly requiredTownHall: number
 
   /** Amount of clan points. */
-  public points: number
+  public readonly points: number
 
   /** Amount of clan builder base points. */
-  public builderBasePoints: number
+  public readonly builderBasePoints: number
 
   /** Amount of clan capital points. */
-  public capitalPoints: number
+  public readonly capitalPoints: number
 
   constructor (
     private client: Client,

@@ -2,13 +2,13 @@ import { APILegendLeagueTournamentResult } from '../types'
 
 export class LegendStatisticsSeason {
   /** ID of legend season. */
-  public id: string
+  public readonly id: string
 
   /** Amount of trophies player has earned in season. */
-  public trophies: number
+  public readonly trophies: number
 
   /** Rank of player in season. */
-  public rank: number
+  public readonly rank: number
 
   constructor (data: APILegendLeagueTournamentResult) {
     this.id = data.id

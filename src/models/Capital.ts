@@ -10,14 +10,13 @@ import {
 
 export class Capital {
   /** Level of capital hall. */
-  public level: number
+  public readonly level: number
 
   /** Array of districts in capital, if any. */
-  public districts: Array<District> | null
+  public readonly districts: Array<District> | null
 
   constructor (data: APIClanCapital) {
     this.level = data.capitalHallLevel
-
     this.districts = getWithNameFromSet(data.districts, districtNameSet)?.map(data => new District(data)) ?? null
   }
 

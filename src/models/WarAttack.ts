@@ -3,22 +3,22 @@ import { APIClanWarAttack } from '../types'
 
 export class WarAttack {
   /** Tag of attacker. */
-  public attackerTag: string
+  public readonly attackerTag: string
 
   /** Tag of defender. */
-  public defenderTag: string
+  public readonly defenderTag: string
 
   /** The order of which attack was made. */
-  public order: number
+  public readonly order: number
 
   /** Amount of stars earned. */
-  public stars: number
+  public readonly stars: number
 
   /** Percentage of destruction made. */
-  public destruction: number
+  public readonly destruction: number
 
   /** Duration of attack in seconds. */
-  public duration: number
+  public readonly duration: number
 
   constructor (
     private client: Client,

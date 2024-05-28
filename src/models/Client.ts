@@ -6,7 +6,7 @@ import { SearchClan } from './SearchClan'
 import { WarLeagueGroup } from './WarLeagueGroup'
 
 import { isValidTag, resolveTag } from '../helpers'
-import { BASE_URL } from '../shared'
+import { BASE_URL, clanSearchOptionsMap } from '../shared'
 
 import {
   APIClan,
@@ -23,12 +23,12 @@ export class Client {
    * @param options - Options for client.
    * @param options.email Email of clash of clans developer account.
    * @param options.password Password for clash of clans developer account.
-   */
-  constructor ({
-    email,
-    password
-  }: ClientOptions) {
-    this.requester = new Requester(email, password)
+  */
+  constructor (options: ClientOptions) {
+    this.requester = new Requester(
+      options.email,
+      options.password
+    )
   }
 
   /**
@@ -79,8 +79,14 @@ export class Client {
     const searchParams = new URLSearchParams()
 
     for (const key in searchOptions) {
-      // @ts-expect-error
-      searchParams.set(key, searchOptions[key].toString())
+      searchParams.set(
+        clanSearchOptionsMap.has(key)
+          ? clanSearchOptionsMap.get(key)!
+          : key,
+
+        // @ts-expect-error
+        searchOptions[key]
+      )
     }
 
     const data = await this.requester.get(`${BASE_URL}/clans?${searchParams.toString()}`)
@@ -115,7 +121,7 @@ export class Client {
   /**
    * Resolve war league group of given clan tag, if in one.
    * @param clanTag Tag of clan.
-   */
+  */
   public async getWarLeagueGroup (clanTag: string) {
     const tag = resolveTag(clanTag)
 
@@ -154,7 +160,7 @@ interface ClanSearchOptions {
   locationID?: number,
   minMembers?: number,
   maxMembers?: number,
-  minClanPoints?: number,
-  minClanLevel?: number,
+  minPoints?: number,
+  minLevel?: number,
   limit?: number
 }

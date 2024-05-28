@@ -8,10 +8,10 @@ import {
 
 export class SuperTroop {
   /** Name of super troop. */
-  public name: SuperTroopName
+  public readonly name: SuperTroopName
 
   /** Which village super troop belongs to. */
-  public village: Village
+  public readonly village: Village
 
   /** If super troop is active. */
   public isActive: boolean

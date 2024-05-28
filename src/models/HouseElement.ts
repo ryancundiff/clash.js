@@ -5,10 +5,10 @@ import {
 
 export class HouseElement {
   /** ID of house element. */
-  public id: number
+  public readonly id: number
 
   /** Type of house element. */
-  public type: HouseElementType
+  public readonly type: HouseElementType
 
   constructor (data: APIPlayerHouseElement) {
     this.id = data.id

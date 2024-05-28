@@ -11,19 +11,19 @@ import {
 
 export class WarLeagueGroup {
   /** Tag of clan war league group. */
-  public tag: string
+  public readonly tag: string
 
   /** State of clan war league group. */
-  public state: WarState
+  public readonly state: WarState
 
   /** Season of clan war league group. */
-  public season: string
+  public readonly season: string
 
   /** Clans in clan war league group. */
-  public clans: Array<WarLeagueClan>
+  public readonly clans: Array<WarLeagueClan>
 
   /** Rounds in clan war league group. */
-  public rounds: Array<WarLeagueRound>
+  public readonly rounds: Array<WarLeagueRound>
 
   constructor(
     private client: Client,

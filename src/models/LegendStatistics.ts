@@ -5,22 +5,22 @@ import { APIPlayerLegendStatistics } from '../types'
 
 export class LegendStatistics {
   /** All-time total amount of trophies the player has earned in the legend league. */
-  public trophies: number
+  public readonly trophies: number
 
   /** Current season legend statistics of player. */
-  public currentSeason: CurrentLegendStatisticsSeason | null
+  public readonly currentSeason: CurrentLegendStatisticsSeason | null
 
   /** Previous season legend statistics of player. */
-  public previousSeason: LegendStatisticsSeason | null
+  public readonly previousSeason: LegendStatisticsSeason | null
 
   /** Previous builder base season legend statistics of player. */
-  public previousBuilderBaseSeason: LegendStatisticsSeason | null
+  public readonly previousBuilderBaseSeason: LegendStatisticsSeason | null
 
   /** Best season legend statistics of player. */
-  public bestSeason: LegendStatisticsSeason | null
+  public readonly bestSeason: LegendStatisticsSeason | null
 
   /** Best builder base season legend statistics of player. */
-  public bestBuilderBaseSeason: LegendStatisticsSeason | null
+  public readonly bestBuilderBaseSeason: LegendStatisticsSeason | null
 
   constructor (data: APIPlayerLegendStatistics) {
     this.trophies = data.legendTrophies

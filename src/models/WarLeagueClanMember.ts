@@ -3,17 +3,18 @@ import { APIClanWarLeagueClanMember } from '../types'
 
 export class WarLeagueClanMember {
   /** Name of war league clan member. */
-  public name: string
+  public readonly name: string
 
   /** Tag of war league clan member. */
-  public tag: string
+  public readonly tag: string
 
   /** Current town hall level of war league clan member. */
-  public townHall: number
+  public readonly townHall: number
 
   constructor(
     private client: Client,
-    data: APIClanWarLeagueClanMember) {
+    data: APIClanWarLeagueClanMember
+  ) {
     this.name = data.name
     this.tag = data.tag
     this.townHall = data.townHallLevel

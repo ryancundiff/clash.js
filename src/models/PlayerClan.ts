@@ -6,13 +6,13 @@ import type {
 
 export class PlayerClan {
   /** Name of player clan. */
-  public name: string
+  public readonly name: string
 
   /** Tag of player clan. */
-  public tag: string
+  public readonly tag: string
 
   /** Level of player clan. */
-  public level: number
+  public readonly level: number
 
   constructor (
     private client: Client,

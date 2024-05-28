@@ -2,19 +2,19 @@ import { APILocation } from '../types'
 
 export class Location {
   /** Name of location. */
-  public name: string
+  public readonly name: string
 
   /** ID of location. */
-  public id: number
+  public readonly id: number
 
   /** Localized name of location. */
-  public localizedName: string | null
+  public readonly localizedName: string | null
 
   /** Country code of location, if has one. */
-  public countryCode: string | null
+  public readonly countryCode: string | null
 
   /** If location is a country. */
-  public isCountry: boolean
+  public readonly isCountry: boolean
 
   constructor (data: APILocation) {
     this.id = data.id

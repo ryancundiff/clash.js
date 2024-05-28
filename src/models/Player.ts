@@ -42,117 +42,101 @@ import type {
 } from '../types'
 
 export class Player {
-  // General player information:
-
   /** Name of player. */
-  public name: string
+  public readonly name: string
 
   /** Tag of player. */
-  public tag: string
+  public readonly tag: string
 
   /** Level of player. */
-  public level: number
+  public readonly level: number
 
   /** Array of player's labels. */
-  public labels: Array<Label> | null
+  public readonly labels: Array<Label> | null
 
   /** Array of player's achievements. */
-  public achievements: Array<Achievement>
+  public readonly achievements: Array<Achievement>
 
   /** Legend statistics of player. */
-  public legendStatistics: LegendStatistics | null
-
-  // League information:
+  public readonly legendStatistics: LegendStatistics | null
 
   /** Current league of player. */
-  public league: League | null
+  public readonly league: League | null
 
   /** Current builder base league of player. */
-  public builderBaseLeague: BuilderBaseLeague | null
-
-  // Clan information:
+  public readonly builderBaseLeague: BuilderBaseLeague | null
 
   /** Clan of player, if in one. */
-  public clan: PlayerClan | null
+  public readonly clan: PlayerClan | null
 
   /** Amount of troops donated by player. */
-  public troopsDonated: number
+  public readonly troopsDonated: number
 
   /** Amount of troops received by player. */
-  public troopsReceived: number
+  public readonly troopsReceived: number
 
   /** Amount of contribution to clan capital by player. */
-  public capitalContribution: number
+  public readonly capitalContribution: number
 
   /** Current role of player in clan, if in one. */
-  public role: Role | null
-
-  // Trophy information:
+  public readonly role: Role | null
 
   /** Amount of trophies player has earned. */
-  public trophies: number
+  public readonly trophies: number
 
   /** All-time best amount of trophies player has earned. */
-  public bestTrophies: number
+  public readonly bestTrophies: number
 
   /** Amount of builder base trophies player has earned. */
-  public builderBaseTrophies: number | null
+  public readonly builderBaseTrophies: number | null
 
   /** All-time best amount of builder base trophies player has earned. */
-  public bestBuilderBaseTrophies: number | null
-
-  // War information:
+  public readonly bestBuilderBaseTrophies: number | null
 
   /** If player is opted-in for clan wars. */
-  public isOptedIn: boolean
+  public readonly isOptedIn: boolean
 
   /** All-time amount of war stars player has earned. */
-  public warStars: number
-
-  // Attack & defense information:
+  public readonly warStars: number
 
   /** Amount of wins player has earned by attacking. */
-  public attackWins: number
+  public readonly attackWins: number
 
   /** Amount of wins player has earned in defense. */
-  public defenseWins: number
-
-  // Town hall & builder hall information:
+  public readonly defenseWins: number
 
   /** Current town hall level of player. */
-  public townHall: number
+  public readonly townHall: number
 
   /** Current town hall weapon level of player, if has one. */
-  public townHallWeapon: number | null
+  public readonly townHallWeapon: number | null
 
   /** Current builder hall level of player, if has one. */
-  public builderHall: number | null
-
-  // Player item information:
+  public readonly builderHall: number | null
 
   /** Array of troops player has unlocked. */
-  public troops: Array<Troop>
+  public readonly troops: Array<Troop>
 
   /** Array of super troops player has unlocked, if any. */
-  public superTroops: Array<SuperTroop> | null
+  public readonly superTroops: Array<SuperTroop> | null
 
   /** Array of pets player has unlocked, if any. */
-  public pets: Array<Pet> | null
+  public readonly pets: Array<Pet> | null
 
   /** Array of siege machines player has unlocked, if any. */
-  public siegeMachines: Array<SiegeMachine> | null
+  public readonly siegeMachines: Array<SiegeMachine> | null
 
   /** Array of heroes player has unlocked, if any. */
-  public heroes: Array<Hero> | null
+  public readonly heroes: Array<Hero> | null
 
   /** Array of spells player has unlocked, if any. */
-  public spells: Array<Spell> | null
+  public readonly spells: Array<Spell> | null
 
   /** Array of equipment player has unlocked, if any. */
-  public equipment: Array<Equipment> | null
+  public readonly equipment: Array<Equipment> | null
 
   /** House of player, if has one. */
-  public house: House | null
+  public readonly house: House | null
 
   constructor (
     private client: Client,

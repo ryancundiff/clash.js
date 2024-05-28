@@ -5,13 +5,13 @@ import {
 
 export class District {
   /** Name of district. */
-  public name: DistrictName
+  public readonly name: DistrictName
 
   /** ID of district. */
-  public id: number
+  public readonly id: number
 
   /** Level of district hall. */
-  public level: number
+  public readonly level: number
   
   constructor (data: APIClanDistrict) {
     this.name = data.name as DistrictName

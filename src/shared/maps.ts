@@ -26,3 +26,9 @@ export const warStateMap = new Map([
   [ 'inWar', 'in-war' ],
   [ 'warEnded', 'war-ended' ]
 ])
+
+export const clanSearchOptionsMap = new Map([
+  [ 'locationID', 'locationId' ],
+  [ 'minPoints', 'minClanPoints' ],
+  [ 'minLevel', 'minClanLevel' ]
+])

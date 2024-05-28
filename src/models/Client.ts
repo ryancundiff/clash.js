@@ -112,6 +112,10 @@ export class Client {
     return null
   }
 
+  /**
+   * Resolve war league group of given clan tag, if in one.
+   * @param clanTag Tag of clan.
+   */
   public async getWarLeagueGroup (clanTag: string) {
     const tag = resolveTag(clanTag)
 

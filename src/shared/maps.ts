@@ -32,3 +32,7 @@ export const clanSearchOptionsMap = new Map([
   [ 'minPoints', 'minClanPoints' ],
   [ 'minLevel', 'minClanLevel' ]
 ])
+
+export const warResultMap = new Map([
+  [ 'lose', 'loss' ]
+])

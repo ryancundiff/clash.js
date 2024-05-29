@@ -48,7 +48,7 @@ export class War {
     this.size = data.teamSize
     this.attacksPerMember = data.attacksPerMember
     this.attacks = data.clan.attacks ?? 0 + data.opponent.attacks ?? 0
-    this.maxAttacks = data.attacksPerMember * 2 * data.teamSize
+    this.maxAttacks = data.attacksPerMember * data.teamSize * 2
 
     this.state = warStateMap.has(data.state)
       ? warStateMap.get(data.state) as WarState

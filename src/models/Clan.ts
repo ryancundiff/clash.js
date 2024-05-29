@@ -159,6 +159,15 @@ export class Clan {
     return await this.client.getWar(this.tag)
   }
 
+  /** Get war log of clan. */
+  public async getWarLog () {
+    if (this.isWarLogPublic) {
+      return await this.client.getWarLog(this.tag)
+    }
+
+    return null
+  }
+
   /**
    * Check if clan has member with given tag.
    * @param memberTag Tag of member.

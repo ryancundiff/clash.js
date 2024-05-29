@@ -4,14 +4,25 @@ import { Player } from './Player'
 import { War } from './War'
 import { SearchClan } from './SearchClan'
 import { WarLeagueGroup } from './WarLeagueGroup'
+import { WarLog } from './WarLog'
+import { ClanMember } from './ClanMember'
 
-import { isValidTag, resolveTag } from '../helpers'
-import { BASE_URL, clanSearchOptionsMap } from '../shared'
+import {
+  isValidTag,
+  resolveTag
+} from '../helpers'
+
+import {
+  BASE_URL,
+  clanSearchOptionsMap
+} from '../shared'
 
 import {
   APIClan,
+  APIClanMember,
   APIClanWar,
   APIClanWarLeagueGroup,
+  APIClanWarLogEntry,
   APIPlayer
 } from '../types'
 
@@ -91,8 +102,28 @@ export class Client {
 
     const data = await this.requester.get(`${BASE_URL}/clans?${searchParams.toString()}`)
 
-    if (data) {
+    if (data && data.items && data.items.length > 0) {
       return (data.items as Array<APIClan>).map(data => new SearchClan(this, data))
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve members of given clan tag.
+   * @param clanTag Tag of clan.
+  */
+  public async getMembers (clanTag: string) {
+    const tag = resolveTag(clanTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/members`)
+  
+    if (data && data.items && data.items.length > 0) {
+      return (data.items as Array<APIClanMember>).map(data => new ClanMember(this, data))
     }
 
     return null
@@ -113,6 +144,26 @@ export class Client {
   
     if (data && (data as APIClanWar).state !== 'notInWar') {
       return new War(this, data as APIClanWar)
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve war log of given clan tag.
+   * @param clanTag Tag of clan.
+  */
+  public async getWarLog (clanTag: string) {
+    const tag = resolveTag(clanTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/warlog`)
+  
+    if (data) {
+      return (data.items as Array<APIClanWarLogEntry>).map(data => new WarLog(this, data))
     }
 
     return null

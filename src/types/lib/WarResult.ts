@@ -1,0 +1,1 @@
+export type WarResult = 'win' | 'loss' | 'tie'

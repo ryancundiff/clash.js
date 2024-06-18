@@ -42,8 +42,12 @@ export class Client {
     )
   }
 
-  public async verify (token: string) {
-    const data = await this.requester.get(`${BASE_URL}/players/${token}/verifytoken`, {
+  /**
+   * Verify given API token.
+   * @param token Token to verify.
+  */
+  public async verify (playerTag: string, token: string) {
+    const data = await this.requester.get(`${BASE_URL}/players/${playerTag}/verifytoken`, {
       token
     })
 

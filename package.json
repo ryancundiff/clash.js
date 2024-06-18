@@ -1,26 +1,22 @@
 {
   "name": "clash.js",
-  "version": "1.1.0-canary.7",
+  "version": "1.1.0-canary.9",
   "description": "A simple Node module that allows you to easily interact with the Clash of Clans API",
   "main": "dist",
-
   "scripts": {
-    "prepublish": "rm -rf dist && rm -rf types && tsc -b",
-    "prestart": "tsc -b",
-    "start": "node dist/test"
+    "pretest": "tsc -b",
+    "test": "node dist/test",
+    "start": "rm -rf && rm -rf && tsc -b"
   },
-
   "keywords": [
     "clash-of-clans",
     "clashofclans",
     "coc",
     "api"
   ],
-
   "types": "types",
   "author": "ryancundiff",
   "license": "MIT",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/ryancundiff/clash.js.git"

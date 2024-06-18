@@ -42,6 +42,14 @@ export class Client {
     )
   }
 
+  public async verify (token: string) {
+    const data = await this.requester.get(`${BASE_URL}/players/${token}/verifytoken`, {
+      token
+    })
+
+    return data === 'ok'
+  }
+
   /**
    * Resolve player of given player tag.
    * @param playerTag Tag of player.

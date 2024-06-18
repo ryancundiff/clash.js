@@ -1,12 +1,12 @@
 {
   "name": "clash.js",
-  "version": "1.1.0-canary.9",
+  "version": "1.1.0-canary.11",
   "description": "A simple Node module that allows you to easily interact with the Clash of Clans API",
   "main": "dist",
   "scripts": {
     "pretest": "tsc -b",
     "test": "node dist/test",
-    "start": "rm -rf && rm -rf && tsc -b"
+    "start": "rm -rf dist && rm -rf types && tsc -b"
   },
   "keywords": [
     "clash-of-clans",

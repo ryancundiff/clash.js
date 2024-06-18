@@ -16,14 +16,14 @@ export class Requester {
     private password: string
   ) {}
 
-  public async get (url: string): Promise<any> {
+  public async get (url: string, body?: Record<string, string>): Promise<any> {
     const data = await get(url, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}`
       },
 
-      
+      body: body ? JSON.stringify(body) : undefined
     })
 
     this.handleStatus(
@@ -39,7 +39,7 @@ export class Requester {
     if (data.status == 404) {
       return null
     } else if (data.status == 403) {
-      await this.handleToken()
+      await this.login()
 
       return await this.get(url)
     }
@@ -54,7 +54,7 @@ export class Requester {
     }
   }
 
-  private async handleToken () {
+  private async login () {
     const ipAddress = (await get('https://api.ipify.org?format=json', {
       headers: {
         'Content-Type': 'application/json'

@@ -16,14 +16,12 @@ export class Requester {
     private password: string
   ) {}
 
-  public async get (url: string, body?: Record<string, string>): Promise<any> {
+  public async get (url: string): Promise<any> {
     const data = await get(url, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}`
-      },
-
-      body: body ? JSON.stringify(body) : undefined
+      }
     })
 
     this.handleStatus(
@@ -42,6 +40,36 @@ export class Requester {
       await this.login()
 
       return await this.get(url)
+    }
+
+    return data.body
+  }
+
+  public async post (url: string, body: Record<any, any>): Promise<any> {
+    const data = await post(url, {
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`
+      }
+    })
+
+    this.handleStatus(
+      data.status,
+
+      new Set([
+        200,
+        403,
+        404
+      ])
+    )
+
+    if (data.status == 404) {
+      return null
+    } else if (data.status == 403) {
+      await this.login()
+
+      return await this.post(url, body)
     }
 
     return data.body

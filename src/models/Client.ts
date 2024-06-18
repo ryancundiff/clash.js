@@ -47,11 +47,17 @@ export class Client {
    * @param token Token to verify.
   */
   public async verify (playerTag: string, token: string) {
-    const data = await this.requester.get(`${BASE_URL}/players/${playerTag}/verifytoken`, {
+    const tag = resolveTag(playerTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.post(`${BASE_URL}/players/${encodeURIComponent(tag)}/verifytoken`, {
       token
     })
 
-    return data === 'ok'
+    return data.status === 'ok'
   }
 
   /**

@@ -19,12 +19,14 @@ import {
 
 import {
   APIClan,
+  APIClanCapitalRaidSeason,
   APIClanMember,
   APIClanWar,
   APIClanWarLeagueGroup,
   APIClanWarLogEntry,
   APIPlayer
 } from '../types'
+import { CapitalSeason } from './CapitalSeason'
 
 export class Client {
   private requester: Requester
@@ -215,6 +217,26 @@ export class Client {
     const data = await this.getPlayer(playerTag)
     
     return data?.legendStatistics ?? null
+  }
+
+  /**
+   * Resolve capital seasons of given clan tag, if any.
+   * @param clanTag Tag of clan.
+  */
+  public async getCapitalSeasons (clanTag: string) {
+    const tag = resolveTag(clanTag)
+
+    if (!isValidTag(tag)) {
+      return null
+    }
+
+    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/capitalraidseasons`)
+    
+    if (data) {
+      return (data.items as Array<APIClanCapitalRaidSeason>).map(data => new CapitalSeason(this, data))
+    }
+
+    return null
   }
 }
 

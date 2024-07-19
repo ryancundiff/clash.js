@@ -100,3 +100,23 @@ export const districtNameSet = new Set([
   'Skeleton Park',
   'Goblin Mines'
 ])
+
+export const elixerSpellNameSet = new Set([
+  'Lightning Spell',
+  'Healing Spell',
+  'Rage Spell',
+  'Jump Spell',
+  'Freeze Spell',
+  'Clone Spell',
+  'Invisibility Spell',
+  'Recall Spell'
+])
+
+export const darkElixerSpellNameSet = new Set([
+  'Poison Spell',
+  'Earthquake Spell',
+  'Haste Spell',
+  'Skeleton Spell',
+  'Bat Spell',
+  'Overgrowth Spell'
+])

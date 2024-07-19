@@ -1,6 +1,6 @@
 {
   "name": "clash.js",
-  "version": "1.1.0-canary.12",
+  "version": "1.1.0-canary.13",
   "description": "A simple Node module that allows you to easily interact with the Clash of Clans API",
   "main": "dist",
   "scripts": {

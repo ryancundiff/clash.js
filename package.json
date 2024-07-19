@@ -20,5 +20,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ryancundiff/clash.js.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.6"
   }
 }

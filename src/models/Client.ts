@@ -6,6 +6,11 @@ import { SearchClan } from './SearchClan'
 import { WarLeagueGroup } from './WarLeagueGroup'
 import { WarLog } from './WarLog'
 import { ClanMember } from './ClanMember'
+import { CapitalSeason } from './CapitalSeason'
+import { League } from './League'
+import { WarLeague } from './WarLeague'
+import { CapitalLeague } from './CapitalLeague'
+import { GoldPass } from './GoldPass'
 
 import {
   isValidTag,
@@ -18,15 +23,17 @@ import {
 } from '../shared'
 
 import {
+  APICapitalLeague,
   APIClan,
   APIClanCapitalRaidSeason,
   APIClanMember,
   APIClanWar,
   APIClanWarLeagueGroup,
   APIClanWarLogEntry,
-  APIPlayer
+  APILeague,
+  APIPlayer,
+  APIWarLeague
 } from '../types'
-import { CapitalSeason } from './CapitalSeason'
 
 export class Client {
   private requester: Requester
@@ -51,15 +58,17 @@ export class Client {
   public async verify (playerTag: string, token: string) {
     const tag = resolveTag(playerTag)
 
-    if (!isValidTag(tag)) {
-      return null
+    if (isValidTag(tag)) {
+      const data = await this.requester.post(`${BASE_URL}/players/${encodeURIComponent(tag)}/verifytoken`, {
+        token
+      })
+      
+      if (data) {
+        return data.status === 'ok'
+      }
     }
 
-    const data = await this.requester.post(`${BASE_URL}/players/${encodeURIComponent(tag)}/verifytoken`, {
-      token
-    })
-
-    return data.status === 'ok'
+    return false
   }
 
   /**
@@ -69,14 +78,12 @@ export class Client {
   public async getPlayer (playerTag: string) {
     const tag = resolveTag(playerTag)
 
-    if (!isValidTag(tag)) {
-      return null
-    }
+    if (isValidTag(tag)) {
+      const data = await this.requester.get(`${BASE_URL}/players/${encodeURIComponent(tag)}`)
 
-    const data = await this.requester.get(`${BASE_URL}/players/${encodeURIComponent(tag)}`)
-
-    if (data) {
-      return new Player(this, data as APIPlayer)
+      if (data) {
+        return new Player(this, data as APIPlayer)
+      }
     }
 
     return null
@@ -89,14 +96,12 @@ export class Client {
   public async getClan (clanTag: string) {
     const tag = resolveTag(clanTag)
 
-    if (!isValidTag(tag)) {
-      return null
-    }
-
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}`)
+    if (isValidTag(tag)) {
+      const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}`)
   
-    if (data) {
-      return new Clan(this, data as APIClan)
+      if (data) {
+        return new Clan(this, data as APIClan)
+      }
     }
 
     return null
@@ -109,14 +114,13 @@ export class Client {
   public async getClans (searchOptions: ClanSearchOptions) {
     const searchParams = new URLSearchParams()
 
-    for (const key in searchOptions) {
+    for (const [ key, value ] of Object.entries(searchOptions)) {
       searchParams.set(
         clanSearchOptionsMap.has(key)
           ? clanSearchOptionsMap.get(key)!
           : key,
 
-        // @ts-expect-error
-        searchOptions[key]
+        value
       )
     }
 
@@ -136,14 +140,12 @@ export class Client {
   public async getMembers (clanTag: string) {
     const tag = resolveTag(clanTag)
 
-    if (!isValidTag(tag)) {
-      return null
-    }
-
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/members`)
+    if (isValidTag(tag)) {
+      const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/members`)
   
-    if (data && data.items && data.items.length > 0) {
-      return (data.items as Array<APIClanMember>).map(data => new ClanMember(this, data))
+      if (data && data.items && data.items.length > 0) {
+        return (data.items as Array<APIClanMember>).map(data => new ClanMember(this, data))
+      }
     }
 
     return null
@@ -156,14 +158,12 @@ export class Client {
   public async getWar (clanTag: string) {
     const tag = resolveTag(clanTag)
 
-    if (!isValidTag(tag)) {
-      return null
-    }
-
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/currentwar`)
+    if (isValidTag(tag)) {
+      const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/currentwar`)
   
-    if (data && (data as APIClanWar).state !== 'notInWar') {
-      return new War(this, data as APIClanWar)
+      if (data && (data as APIClanWar).state !== 'notInWar') {
+        return new War(this, data as APIClanWar)
+      }
     }
 
     return null
@@ -176,14 +176,12 @@ export class Client {
   public async getWarLog (clanTag: string) {
     const tag = resolveTag(clanTag)
 
-    if (!isValidTag(tag)) {
-      return null
-    }
-
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/warlog`)
+    if (isValidTag(tag)) {
+      const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/warlog`)
   
-    if (data) {
-      return (data.items as Array<APIClanWarLogEntry>).map(data => new WarLog(this, data))
+      if (data) {
+        return (data.items as Array<APIClanWarLogEntry>).map(data => new WarLog(this, data))
+      }
     }
 
     return null
@@ -196,14 +194,12 @@ export class Client {
   public async getWarLeagueGroup (clanTag: string) {
     const tag = resolveTag(clanTag)
 
-    if (!isValidTag(tag)) {
-      return null
-    }
-
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/currentwar/leaguegroup`)
+    if (isValidTag(tag)) {
+      const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/currentwar/leaguegroup`)
   
-    if (data) {
-      return new WarLeagueGroup(this, data as APIClanWarLeagueGroup)
+      if (data) {
+        return new WarLeagueGroup(this, data as APIClanWarLeagueGroup)
+      }
     }
 
     return null
@@ -226,14 +222,135 @@ export class Client {
   public async getCapitalSeasons (clanTag: string) {
     const tag = resolveTag(clanTag)
 
-    if (!isValidTag(tag)) {
-      return null
+    if (isValidTag(tag)) {
+      const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/capitalraidseasons`)
+    
+      if (data) {
+        return (data.items as Array<APIClanCapitalRaidSeason>).map(data => new CapitalSeason(this, data))
+      }
     }
 
-    const data = await this.requester.get(`${BASE_URL}/clans/${encodeURIComponent(tag)}/capitalraidseasons`)
+    return null
+  }
+
+  /**
+    * Resolve all leagues.
+    * @param limit Amount of leagues to return.
+  */
+  public async getLeagues (limit?: number) {
+    const data = await this.requester.get(`${BASE_URL}/leagues${limit ? `?limit=${limit}` : ''}`)
     
     if (data) {
-      return (data.items as Array<APIClanCapitalRaidSeason>).map(data => new CapitalSeason(this, data))
+      return (data.items as Array<APILeague>).map(data => new League(data))
+    }
+
+    return null
+  }
+
+  /**
+    * Resolve all war leagues.
+    * @param limit Amount of war leagues to return.
+  */
+  public async getWarLeagues (limit?: number) {
+    const data = await this.requester.get(`${BASE_URL}/warleagues${limit ? `?limit=${limit}` : ''}`)
+    
+    if (data) {
+      return (data.items as Array<APIWarLeague>).map(data => new WarLeague(data))
+    }
+
+    return null
+  }
+
+  /**
+    * Resolve all capital leagues.
+    * @param limit Amount of capital leagues to return.
+  */
+  public async getCapitalLeagues (limit?: number) {
+    const data = await this.requester.get(`${BASE_URL}/capitalleagues${limit ? `?limit=${limit}` : ''}`)
+    
+    if (data) {
+      return (data.items as Array<APICapitalLeague>).map(data => new CapitalLeague(data))
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve league of given league ID.
+   * @param leagueID ID of league.
+  */
+  public async getLeague (leagueID: number) {
+    const data = await this.requester.get(`${BASE_URL}/leagues/${leagueID}`)
+    
+    if (data) {
+      return new League(data)
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve war league of given war league ID.
+   * @param warLeagueID ID of war league.
+  */
+  public async getWarLeague (warLeagueID: number) {
+    const data = await this.requester.get(`${BASE_URL}/warleagues/${warLeagueID}`)
+    
+    if (data) {
+      return new WarLeague(data)
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve capital league of given capital league ID.
+   * @param capitalLeagueID ID of capital league.
+  */
+  public async getCapitalLeague (capitalLeagueID: number) {
+    const data = await this.requester.get(`${BASE_URL}/capitalleagues/${capitalLeagueID}`)
+    
+    if (data) {
+      return new CapitalLeague(data)
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve all player labels.
+   * @param limit Amount of player labels to return.
+  */
+  public async getPlayerLabels (limit?: number) {
+    const data = await this.requester.get(`${BASE_URL}/labels/players${limit ? `?limit=${limit}` : ''}`)
+    
+    if (data) {
+      return data.items as Array<string>
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve all clan labels.
+   * @param limit Amount of clan labels to return.
+  */
+  public async getClanLabels (limit?: number) {
+    const data = await this.requester.get(`${BASE_URL}/labels/clans${limit ? `?limit=${limit}` : ''}`)
+    
+    if (data) {
+      return data.items as Array<string>
+    }
+
+    return null
+  }
+
+  /** Resolve current gold pass season. */
+  public async getGoldPass () {
+    const data = await this.requester.get(`${BASE_URL}/goldpass/seasons/current`)
+
+    if (data) {
+      return new GoldPass(data)
     }
 
     return null

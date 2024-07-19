@@ -18,7 +18,9 @@ import { getWithNameFromSet } from '../helpers'
 
 import {
   builderBaseHeroNameSet,
+  darkElixerSpellNameSet,
   darkElixerTroopNameSet,
+  elixerSpellNameSet,
   elixerTroopNameSet,
   homeHeroNameSet,
   petNameSet,
@@ -221,6 +223,24 @@ export class Player {
   /** Array of dark elixer troops player has unlocked, if any. */
   public get darkElixerTroops () {
     return getWithNameFromSet(this.troops, darkElixerTroopNameSet)
+  }
+
+  /** Array of elixer spells player has unlocked, if any. */
+  public get elixerSpells () {
+    if (this.spells) {
+      return getWithNameFromSet(this.spells, elixerSpellNameSet)
+    }
+
+    return null
+  }
+
+  /** Array of dark elixer spells player has unlocked, if any. */
+  public get darkElixerSpells () {
+    if (this.spells) {
+      return getWithNameFromSet(this.spells, darkElixerSpellNameSet)
+    }
+
+    return null
   }
 
   /** Array of super troops player has active, if any. */

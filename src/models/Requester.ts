@@ -9,7 +9,8 @@ import {
 } from '../shared'
 
 export class Requester {
-  private token?: string | null = null
+  private token?: string
+  private loggedIn = false
 
   constructor (
     private email: string,
@@ -99,10 +100,16 @@ export class Requester {
       }
     })).headers.get('Set-Cookie')!
 
-    const tokens = await this.getTokens(cookie) as Token[]
-    const matchingToken = tokens.find((token: any) => token.cidrRanges.includes(ipAddress))
+    if (!this.loggedIn) {
+      const tokens = await this.getTokens(cookie) as Token[]
+      const matchingToken = tokens.find((token: any) => token.cidrRanges.includes(ipAddress))
 
-    this.token = matchingToken ? matchingToken.key : await this.createToken(cookie, ipAddress)
+      this.token = matchingToken ? matchingToken.key : await this.createToken(cookie, ipAddress)
+
+      this.loggedIn = true
+    } else {
+      this.token = await this.createToken(cookie, ipAddress)
+    }
   }
 
   private async getTokens (cookie: string) {

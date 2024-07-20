@@ -17,10 +17,6 @@ export class Requester {
   ) {}
 
   public async get (url: string): Promise<any> {
-    if (this.token === null) {
-
-    }
-
     const data = await get(url, {
       headers: {
         'Content-Type': 'application/json',

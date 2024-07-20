@@ -9,7 +9,7 @@ import {
 } from '../shared'
 
 export class Requester {
-  private token?: string
+  private token?: string | null = null
 
   constructor (
     private email: string,
@@ -17,6 +17,10 @@ export class Requester {
   ) {}
 
   public async get (url: string): Promise<any> {
+    if (this.token === null) {
+
+    }
+
     const data = await get(url, {
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +79,6 @@ export class Requester {
     return data.body
   }
 
-  // Private interface:
   private handleStatus (status: number, expect: Set<number>) {
     if (!expect.has(status)) {
       throw new Error(`Received unexpected status code: ${status} ${statusCodeMap.get(status) ?? 'Unknown'}`)
@@ -100,7 +103,10 @@ export class Requester {
       }
     })).headers.get('Set-Cookie')!
 
-    this.token = await this.createToken(cookie, ipAddress)
+    const tokens = await this.getTokens(cookie) as Token[]
+    const matchingToken = tokens.find((token: any) => token.cidrRanges.includes(ipAddress))
+
+    this.token = matchingToken ? matchingToken.key : await this.createToken(cookie, ipAddress)
   }
 
   private async getTokens (cookie: string) {
@@ -158,4 +164,17 @@ export class Requester {
 
     return data.status == 200
   }
+}
+
+interface Token {
+  id: string,
+  developerId: string,
+  tier: string,
+  name: string,
+  description: string,
+  origins: null,
+  scopes: string[],
+  cidrRanges: string[],
+  validUntil: null,
+  key: string
 }

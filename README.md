@@ -19,7 +19,7 @@ A simple [Node.js](https://nodejs.org/en) module designed to streamline interact
 - **Fully object-oriented** for intuitive usage
 - **Predictable abstractions** for ease of development
 - **Fully typed with JSDoc specifications** for improved code quality and developer experience
-- **Automatic token creation and deletion** for if you don't have a static IP address.
+- **Automatic token creation and deletion** for if you don't have a static IP address
 
 ## Getting Started
 
@@ -34,7 +34,8 @@ Install package via [NPM](https://www.npmjs.com/package/clash.js):
 ```
 
 ### Usage Example
-Here's a basic example demonstrating how to use clash.js to fetch a player and their clan:
+Here's some basic examples of how to interact with clash.js:
+
 
 ```ts
 import { Client } from 'clash.js'
@@ -72,9 +73,11 @@ import { Client } from 'clash.js'
 > You can even retrieve a player's full clan from their class object without passing a tag as a parameter.
 
 ```ts
-    const capital = playerClan?.capital
+    if (playerClan) {
+      const capital = playerClan.capital
 
-    const golemQuarry = capital.getDistrict('Golem Quarry')
+      const golemQuarry = capital?.getDistrict('Golem Quarry')
+    }
 ```
 
 > Look up a capital's district from it's class object (parameter fully typed).
@@ -101,12 +104,32 @@ import { Client } from 'clash.js'
     const enemyMembers = enemy.members
     const firstAllyMember = allyMembers[0]
     const bestEnemyAttack = firstAllyMember.bestEnemyAttack
+  }
 ```
 
 > You can access members, attacks, and more with the `War` object.
 
 ```ts
-  }
+  const clans = new Clans(client)
+    .add('#ABCDEFG')
+    .set('description', (oldClan, newClan) => oldClan.description !== newClan.description)
+
+  clans.on('description', (oldClan, newClan) => {
+    console.log(`${newClan.name} changed their description from '${oldClan.description}' to '${newClan.description}'`)
+  })
+
+  const players = new Players(client)
+    .add('#ABCDEFG')
+    .set('barbarian-king-upgrade', (oldPlayer, newPlayer) => oldPlayer.getHero('Barbarian King')?.level < newPlayer.getHero('Barbarian King')?.level )
+
+  players.on('barbarian-king-upgrade', (oldPlayer, newPlayer) => {
+    console.log(`${newPlayer.name}'s Barbarian King upgraded to level ${newPlayer.getHero('Barbarian King')?.level}`)
+  })
+```
+
+> You can listen to events by using the Clans and Players polling managers.
+
+```ts
 })()
 ```
 

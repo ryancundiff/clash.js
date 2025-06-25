@@ -11,6 +11,7 @@ import { League } from './League'
 import { WarLeague } from './WarLeague'
 import { CapitalLeague } from './CapitalLeague'
 import { GoldPass } from './GoldPass'
+import { BuilderBaseLeague } from './BuilderBaseLeague'
 
 import {
   isValidTag,
@@ -35,7 +36,6 @@ import {
   APIPlayer,
   APIWarLeague
 } from '../types'
-import { BuilderBaseLeague } from './BuilderBaseLeague'
 
 export class Client {
   private requester: Requester

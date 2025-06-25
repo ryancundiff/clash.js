@@ -5,18 +5,19 @@ import { districtNameSet } from '../shared'
 
 import {
   APIClanCapital,
+  CapitalHallLevel,
   DistrictName
 } from '../types'
 
 export class Capital {
   /** Level of capital hall. */
-  public readonly level: number
+  public readonly level: CapitalHallLevel
 
   /** Array of districts in capital, if any. */
   public readonly districts: Array<District> | null
 
   constructor (data: APIClanCapital) {
-    this.level = data.capitalHallLevel
+    this.level = data.capitalHallLevel as CapitalHallLevel
     this.districts = getWithNameFromSet(data.districts, districtNameSet)?.map(data => new District(data)) ?? null
   }
 

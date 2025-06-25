@@ -41,7 +41,9 @@ import type {
   TroopName,
   SiegeMachineName,
   LabelName,
-  AchievementName
+  AchievementName,
+  TownHallLevel,
+  BuilderHallLevel
 } from '../types'
 
 export class Player {
@@ -109,13 +111,13 @@ export class Player {
   public readonly defenseWins: number
 
   /** Current town hall level of player. */
-  public readonly townHall: number
+  public readonly townHall: TownHallLevel
 
   /** Current town hall weapon level of player, if has one. */
   public readonly townHallWeapon: number | null
 
   /** Current builder hall level of player, if has one. */
-  public readonly builderHall: number | null
+  public readonly builderHall: BuilderHallLevel | null
 
   /** Array of troops player has unlocked. */
   public readonly troops: Array<Troop>
@@ -187,9 +189,9 @@ export class Player {
     this.warStars = data.warStars
     this.attackWins = data.attackWins
     this.defenseWins = data.defenseWins
-    this.townHall = data.townHallLevel
+    this.townHall = data.townHallLevel as TownHallLevel
     this.townHallWeapon = data.townHallWeaponLevel ?? null
-    this.builderHall = data.builderHallLevel ?? null
+    this.builderHall = data.builderHallLevel as BuilderHallLevel | undefined ?? null
     
     this.troops = getWithNameFromSet(data.troops, troopNameSet)!.map(data => new Troop(data))
 

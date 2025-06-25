@@ -3,6 +3,7 @@ import { CapitalSeasonAttack } from './CapitalSeasonAttack'
 
 import {
   APIClanCapitalRaidSeasonDistrict,
+  DistrictHallLevel,
   DistrictName
 } from '../types'
 
@@ -14,7 +15,7 @@ export class CapitalSeasonDistrict {
   public readonly id: number
 
   /** Level of district. */
-  public readonly level: number
+  public readonly level: DistrictHallLevel
 
   /** Amount of stars earned. */
   public readonly stars: number
@@ -34,7 +35,7 @@ export class CapitalSeasonDistrict {
   ) {
     this.name = data.name as DistrictName
     this.id = data.id
-    this.level = data.districtHallLevel
+    this.level = data.districtHallLevel as DistrictHallLevel
     this.stars = data.stars
     this.destruction = data.destructionPercent
     

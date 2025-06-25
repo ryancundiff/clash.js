@@ -1,5 +1,6 @@
 import {
   APIClanDistrict,
+  DistrictHallLevel,
   DistrictName
 } from '../types'
 
@@ -11,11 +12,11 @@ export class District {
   public readonly id: number
 
   /** Level of district hall. */
-  public readonly level: number
+  public readonly level: DistrictHallLevel
   
   constructor (data: APIClanDistrict) {
     this.name = data.name as DistrictName
     this.id = data.id
-    this.level = data.districtHallLevel
+    this.level = data.districtHallLevel as DistrictHallLevel
   }
 }

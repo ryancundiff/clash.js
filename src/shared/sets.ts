@@ -8,7 +8,8 @@ export const petNameSet = new Set([
   'Poison Lizard',
   'Phoenix',
   'Spirit Fox',
-  'Angry Jelly'
+  'Angry Jelly',
+  'Sneezy'
 ])
 
 export const elixerTroopNameSet = new Set ([
@@ -28,7 +29,8 @@ export const elixerTroopNameSet = new Set ([
   'Yeti',
   'Dragon Rider',
   'Electro Titan',
-  'Root Rider'
+  'Root Rider',
+  'Thrower'
 ])
 
 export const darkElixerTroopNameSet = new Set ([
@@ -41,7 +43,9 @@ export const darkElixerTroopNameSet = new Set ([
   'Bowler',
   'Ice Golem',
   'Headhunter',
-  'Apprentice Warden'
+  'Apprentice Warden',
+  'Druid',
+  'Furnace'
 ])
 
 export const troopNameSet = new Set ([
@@ -75,14 +79,16 @@ export const siegeMachineNameSet = new Set([
   'Siege Barracks',
   'Log Launcher',
   'Flame Flinger',
-  'Battle Drill'
+  'Battle Drill',
+  'Troop Launcher'
 ])
 
 export const homeHeroNameSet = new Set([
   'Barbarian King',
   'Archer Queen',
   'Grand Warden',
-  'Royal Champion'
+  'Royal Champion',
+  'Minion Prince'
 ])
 
 export const builderBaseHeroNameSet = new Set([
@@ -109,7 +115,8 @@ export const elixerSpellNameSet = new Set([
   'Freeze Spell',
   'Clone Spell',
   'Invisibility Spell',
-  'Recall Spell'
+  'Recall Spell',
+  'Revive Spell'
 ])
 
 export const darkElixerSpellNameSet = new Set([
@@ -118,5 +125,6 @@ export const darkElixerSpellNameSet = new Set([
   'Haste Spell',
   'Skeleton Spell',
   'Bat Spell',
-  'Overgrowth Spell'
+  'Overgrowth Spell',
+  'Ice Block Spell'
 ])

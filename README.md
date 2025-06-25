@@ -21,6 +21,9 @@ A lightweight and simple [Node.js](https://nodejs.org/en) module designed to str
 - **Fully typed with JSDoc specifications** for improved code quality and developer experience
 - **Automatic token creation and deletion** for if you don't have a static IP address
 
+> [!IMPORTANT]
+> This module is still in development and may not cover 100% of the API. If you find any bugs or have feature requests, please [open and issue](https://github.com/ryancundiff/clash.js/issues).
+
 ## Getting Started
 
 ### Prerequisites

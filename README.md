@@ -30,7 +30,7 @@ A lightweight and simple [Node.js](https://nodejs.org/en) module designed to str
 Install package via [NPM](https://www.npmjs.com/package/clash.js):
 
 ```sh
-  npm i clash.js
+npm i clash.js
 ```
 
 ### Usage Example

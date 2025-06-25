@@ -1,12 +1,17 @@
 import {
-  get,
-  post
-} from '../helpers'
+  fetch,
+  Agent,
+  RequestInit
+} from 'undici'
 
 import {
   DEV_URL,
   statusCodeMap
 } from '../shared'
+
+const dispatcher = new Agent({
+  pipelining: 0
+})
 
 export class Requester {
   private token?: string
@@ -17,8 +22,38 @@ export class Requester {
     private password: string
   ) {}
 
+  private async _get (url: string, requestInit: RequestInit) {
+    const response = await fetch(url, {
+      dispatcher,
+      ...requestInit
+    })
+
+    const responseBody = await response.json()
+
+    return {
+      status: response.status,
+      body: responseBody
+    }
+  }
+
+  private async _post (url: string, requestInit: RequestInit) {
+    const response = await fetch(url, {
+      dispatcher,
+      method: 'POST',
+      ...requestInit
+    })
+
+    const responseBody = await response.json()
+
+    return {
+      status: response.status,
+      headers: response.headers,
+      body: responseBody 
+    }
+  }
+
   public async get (url: string): Promise<any> {
-    const data = await get(url, {
+    const data = await this._get(url, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}`
@@ -47,7 +82,7 @@ export class Requester {
   }
 
   public async post (url: string, body: Record<any, any>): Promise<any> {
-    const data = await post(url, {
+    const data = await this._post(url, {
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
@@ -83,13 +118,13 @@ export class Requester {
   }
 
   private async login () {
-    const ipAddress = (await get('https://api.ipify.org?format=json', {
+    const ipAddress = (await this._get('https://api.ipify.org?format=json', {
       headers: {
         'Content-Type': 'application/json'
-      }
+      } // @ts-ignore
     })).body?.ip
 
-    const cookie = (await post(`${DEV_URL}/login`, {
+    const cookie = (await this._post(`${DEV_URL}/login`, {
       body: JSON.stringify({
         email: this.email,
         password: this.password
@@ -101,8 +136,8 @@ export class Requester {
     })).headers.get('Set-Cookie')!
 
     if (!this.loggedIn) {
-      const tokens = await this.getTokens(cookie) as Token[]
-      const matchingToken = tokens.find((token: any) => token.cidrRanges.includes(ipAddress))
+      const tokens = await this.getTokens(cookie)
+      const matchingToken = tokens.find((token) => token.cidrRanges.includes(ipAddress))
 
       this.token = matchingToken ? matchingToken.key : await this.createToken(cookie, ipAddress)
 
@@ -112,19 +147,19 @@ export class Requester {
     }
   }
 
-  private async getTokens (cookie: string) {
-    const data = await post(`${DEV_URL}/apikey/list`, {
+  private async getTokens (cookie: string): Promise<Token[]> {
+    const data = await this._post(`${DEV_URL}/apikey/list`, {
       headers: {
         'Content-Type': 'application/json',
         cookie
       }
     })
 
-    return data.body.keys
+    return (data.body as { keys: Token[] }).keys
   }
 
   private async createToken (cookie: string, ipAddress: string): Promise<string> {
-    const data = await post(`${DEV_URL}/apikey/create`, {
+    const data = await this._post(`${DEV_URL}/apikey/create`, {
       body: JSON.stringify({
         cidrRanges: [ipAddress],
         name: 'Key',
@@ -138,7 +173,7 @@ export class Requester {
     })
 
     if (data.status != 200) {
-      if (data.status == 403 && data.body?.error == 'too-many-keys') {
+      if (data.status == 403 && (data.body as { error?: string })?.error == 'too-many-keys') {
         const tokens = await this.getTokens(cookie)
 
         // Delete last token.
@@ -150,11 +185,11 @@ export class Requester {
       throw new Error('Trouble processing internal request creating token')
     }
 
-    return data.body.key.key
+    return (data.body as { key: { key: string } }).key.key
   }
 
   private async deleteToken (cookie: string, id: string) {
-    const data = await post(`${DEV_URL}/apikey/revoke`, {
+    const data = await this._post(`${DEV_URL}/apikey/revoke`, {
       body: JSON.stringify({
         id
       }),

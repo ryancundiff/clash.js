@@ -40,7 +40,8 @@ import type {
   SuperTroopName,
   TroopName,
   SiegeMachineName,
-  LabelName
+  LabelName,
+  AchievementName
 } from '../types'
 
 export class Player {
@@ -535,6 +536,20 @@ export class Player {
         if (equipment.name == equipmentName) {
           return equipment
         }
+      }
+    }
+
+    return null
+  }
+
+  /**
+   * Get achievement of given name from player, if has one.
+   * @param achievementName Name of achievement.
+  */
+  public getAchievement (achievementName: AchievementName) {
+    for (const achievement of this.achievements) {
+      if (achievement.name == achievementName) {
+        return achievement
       }
     }
 

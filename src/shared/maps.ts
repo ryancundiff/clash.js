@@ -19,7 +19,8 @@ export const warFrequencyMap = new Map([
 ])
 
 export const villageMap = new Map([
-  [ 'builderBase', 'builder-base' ]
+  [ 'builderBase', 'builder-base' ],
+  [ 'clanCapital', 'clan-capital' ]
 ])
 
 export const warStateMap = new Map([
@@ -35,4 +36,8 @@ export const clanSearchOptionsMap = new Map([
 
 export const warResultMap = new Map([
   [ 'lose', 'loss' ]
+])
+
+export const achievementMap = new Map([
+  ['Crafter’s Nightmare', 'Crafter\'s Nightmare']
 ])

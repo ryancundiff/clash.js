@@ -1,13 +1,17 @@
-import { villageMap } from '../shared'
+import {
+  achievementMap,
+  villageMap
+} from '../shared'
 
 import {
+  AchievementName,
   APIPlayerAchievementProgress,
   Village
 } from '../types'
 
 export class Achievement {
     /** Name of achievement. */
-    public readonly name: string
+    public readonly name: AchievementName
 
     /** Amount of stars earned. */
     public readonly stars: number
@@ -30,7 +34,11 @@ export class Achievement {
     constructor (data: APIPlayerAchievementProgress) {
         this.stars = data.stars
         this.value = data.value
-        this.name = data.name
+        
+        this.name = achievementMap.has(data.name)
+          ? achievementMap.get(data.name) as AchievementName
+          : data.name as AchievementName
+
         this.target = data.target
         this.info = data.info
         this.completion = data.completionInfo

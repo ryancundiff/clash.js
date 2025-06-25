@@ -1,6 +1,6 @@
 {
   "name": "clash.js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A simple Node module that allows you to easily interact with the Clash of Clans API",
   "main": "dist",
   "scripts": {

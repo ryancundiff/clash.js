@@ -23,6 +23,7 @@ import {
 } from '../shared'
 
 import {
+  APIBuilderBaseLeague,
   APICapitalLeague,
   APIClan,
   APIClanCapitalRaidSeason,
@@ -34,6 +35,7 @@ import {
   APIPlayer,
   APIWarLeague
 } from '../types'
+import { BuilderBaseLeague } from './BuilderBaseLeague'
 
 export class Client {
   private requester: Requester
@@ -248,6 +250,20 @@ export class Client {
   }
 
   /**
+    * Resolve all builder base leagues.
+    * @param limit Amount of builder base leagues to return.
+  */
+  public async getBuilderBaseLeagues (limit?: number) {
+    const data = await this.requester.get(`${BASE_URL}/builderbaseleagues${limit ? `?limit=${limit}` : ''}`)
+    
+    if (data) {
+      return (data.items as Array<APIBuilderBaseLeague>).map(data => new BuilderBaseLeague(data))
+    }
+
+    return null
+  }
+
+  /**
     * Resolve all war leagues.
     * @param limit Amount of war leagues to return.
   */
@@ -284,6 +300,20 @@ export class Client {
     
     if (data) {
       return new League(data)
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve builder base league of given builder base league ID.
+   * @param builderBaseLeagueID ID of builder base league.
+  */
+  public async getBuilderBaseLeague (builderBaseLeagueID: number) {
+    const data = await this.requester.get(`${BASE_URL}/builderbaseleagues/${builderBaseLeagueID}`)
+    
+    if (data) {
+      return new BuilderBaseLeague(data)
     }
 
     return null

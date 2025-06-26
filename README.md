@@ -147,5 +147,35 @@ const golemQuarryHallImageURL = Images.getDistrictHall(golemQuarryHall)
 
 > You can get images of buildings and (eventually) troops, spells, equipment, etc. with the `Images` class.
 
+```ts
+import { ArmyLink } from 'clash.js'
+
+const armyLinkOne = new ArmyLink()
+  .addUnit('Barbarian', 50)
+  .addUnit('Archer', 25)
+  .addUnit('Giant', 10)
+  .addSpell('Lightning Spell', 2)
+
+console.log(armyLinkOne) // -> string 'https://link.clashofclans.com/en?action=CopyArmy&army=u50x0-25x1-10x3s2x0'
+
+// OR:
+
+const armyLinkTwo = new ArmyLink('https://link.clashofclans.com/en?action=CopyArmy&army=u50x0-25x1-10x3s2x0')
+
+console.log(armyLinkTwo.units) // -> ArmyLinkUnit { name, count } [] | null
+console.log(armyLinkTwo.spells) // -> ArmyLinkSpell { name, count } [] | null
+
+// More data members:
+console.log(armyLinkTwo.troops)
+console.log(armyLinkTwo.elixerTroops)
+console.log(armyLinkTwo.darkElixerTroops)
+console.log(armyLinkTwo.superTroops)
+console.log(armyLinkTwo.siegeMachines)
+console.log(armyLinkTwo.elixerSpells)
+console.log(armyLinkTwo.darkElixerSpells)
+```
+
+> You can create an army link with the `ArmyLink` class, or parse an existing army link from a URL. Add or remove troops and spells using the member functions `addUnit`, `removeUnit`, `addSpell`, and `removeSpell` (all parameters fully typed). You can also access the data members of the class to get information about the troops and spells in the army link.
+
 ### And there's even more...
 Use [clash.js](https://www.npmjs.com/package/clash.js) in your Clash of Clan's project workflow and let your intellisense thank you later!

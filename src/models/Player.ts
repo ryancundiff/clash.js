@@ -18,10 +18,10 @@ import { getWithNameFromSet } from '../helpers'
 
 import {
   builderBaseHeroNameSet,
-  darkElixerSpellNameSet,
-  darkElixerTroopNameSet,
-  elixerSpellNameSet,
-  elixerTroopNameSet,
+  darkElixirSpellNameSet,
+  darkElixirTroopNameSet,
+  elixirSpellNameSet,
+  elixirTroopNameSet,
   homeHeroNameSet,
   petNameSet,
   roleMap,
@@ -218,29 +218,29 @@ export class Player {
       : null
   }
 
-  /** Array of elixer troops player has unlocked. */
-  public get elixerTroops () {
-    return getWithNameFromSet(this.troops, elixerTroopNameSet)
+  /** Array of elixir troops player has unlocked. */
+  public get elixirTroops () {
+    return getWithNameFromSet(this.troops, elixirTroopNameSet)
   }
 
-  /** Array of dark elixer troops player has unlocked, if any. */
-  public get darkElixerTroops () {
-    return getWithNameFromSet(this.troops, darkElixerTroopNameSet)
+  /** Array of dark elixir troops player has unlocked, if any. */
+  public get darkElixirTroops () {
+    return getWithNameFromSet(this.troops, darkElixirTroopNameSet)
   }
 
-  /** Array of elixer spells player has unlocked, if any. */
-  public get elixerSpells () {
+  /** Array of elixir spells player has unlocked, if any. */
+  public get elixirSpells () {
     if (this.spells) {
-      return getWithNameFromSet(this.spells, elixerSpellNameSet)
+      return getWithNameFromSet(this.spells, elixirSpellNameSet)
     }
 
     return null
   }
 
-  /** Array of dark elixer spells player has unlocked, if any. */
-  public get darkElixerSpells () {
+  /** Array of dark elixir spells player has unlocked, if any. */
+  public get darkElixirSpells () {
     if (this.spells) {
-      return getWithNameFromSet(this.spells, darkElixerSpellNameSet)
+      return getWithNameFromSet(this.spells, darkElixirSpellNameSet)
     }
 
     return null

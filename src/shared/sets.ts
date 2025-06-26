@@ -12,7 +12,7 @@ export const petNameSet = new Set([
   'Sneezy'
 ])
 
-export const elixerTroopNameSet = new Set ([
+export const elixirTroopNameSet = new Set ([
   'Barbarian',
   'Archer',
   'Giant',
@@ -33,7 +33,7 @@ export const elixerTroopNameSet = new Set ([
   'Thrower'
 ])
 
-export const darkElixerTroopNameSet = new Set ([
+export const darkElixirTroopNameSet = new Set ([
   'Minion',
   'Hog Rider',
   'Valkyrie',
@@ -49,8 +49,8 @@ export const darkElixerTroopNameSet = new Set ([
 ])
 
 export const troopNameSet = new Set ([
-  ...Array.from(elixerTroopNameSet),
-  ...Array.from(darkElixerTroopNameSet)
+  ...Array.from(elixirTroopNameSet),
+  ...Array.from(darkElixirTroopNameSet)
 ])
 
 export const superTroopNameSet = new Set([
@@ -107,7 +107,7 @@ export const districtNameSet = new Set([
   'Goblin Mines'
 ])
 
-export const elixerSpellNameSet = new Set([
+export const elixirSpellNameSet = new Set([
   'Lightning Spell',
   'Healing Spell',
   'Rage Spell',
@@ -119,7 +119,7 @@ export const elixerSpellNameSet = new Set([
   'Revive Spell'
 ])
 
-export const darkElixerSpellNameSet = new Set([
+export const darkElixirSpellNameSet = new Set([
   'Poison Spell',
   'Earthquake Spell',
   'Haste Spell',

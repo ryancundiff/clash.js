@@ -13,10 +13,10 @@ import {
   armyLinkSpellNameMap,
   armyLinkUnitMap,
   armyLinkSpellMap,
-  elixerTroopNameSet,
-  darkElixerTroopNameSet,
-  elixerSpellNameSet,
-  darkElixerSpellNameSet,
+  elixirTroopNameSet,
+  darkElixirTroopNameSet,
+  elixirSpellNameSet,
+  darkElixirSpellNameSet,
   superTroopNameSet,
   siegeMachineNameSet
 } from '../shared'
@@ -70,15 +70,15 @@ export class ArmyLink extends String {
   /** Array of troops in the army link. */
   public get troops () {
     const troops = []
-    const elixerTroops = this.elixerTroops
-    const darkElixerTroops = this.darkElixerTroops
+    const elixirTroops = this.elixirTroops
+    const darkElixirTroops = this.darkElixirTroops
     const superTroops = this.superTroops
 
-    if (elixerTroops && elixerTroops.length > 0)
-      troops.push(...elixerTroops)
+    if (elixirTroops && elixirTroops.length > 0)
+      troops.push(...elixirTroops)
 
-    if (darkElixerTroops && darkElixerTroops.length > 0)
-      troops.push(...darkElixerTroops)
+    if (darkElixirTroops && darkElixirTroops.length > 0)
+      troops.push(...darkElixirTroops)
 
     if (superTroops && superTroops.length > 0)
       troops.push(...superTroops)
@@ -89,14 +89,14 @@ export class ArmyLink extends String {
     return troops
   }
 
-  /** Array of elixer troops in the army link. */
-  public get elixerTroops () {
-    return getWithNameFromSet(this._units, elixerTroopNameSet)
+  /** Array of elixir troops in the army link. */
+  public get elixirTroops () {
+    return getWithNameFromSet(this._units, elixirTroopNameSet)
   }
 
-  /** Array of dark elixer troops in the army link. */
-  public get darkElixerTroops () {
-    return getWithNameFromSet(this._units, darkElixerTroopNameSet)
+  /** Array of dark elixir troops in the army link. */
+  public get darkElixirTroops () {
+    return getWithNameFromSet(this._units, darkElixirTroopNameSet)
   }
 
   /** Array of super troops in the army link. */
@@ -104,14 +104,14 @@ export class ArmyLink extends String {
     return getWithNameFromSet(this._units, superTroopNameSet)
   }
 
-  /** Array of elixer spells in the army link. */
-  public get elixerSpells () {
-    return getWithNameFromSet(this._spells, elixerSpellNameSet)
+  /** Array of elixir spells in the army link. */
+  public get elixirSpells () {
+    return getWithNameFromSet(this._spells, elixirSpellNameSet)
   }
 
-  /** Array of dark elixer spells in the army link. */
-  public get darkElixerSpells () {
-    return getWithNameFromSet(this._spells, darkElixerSpellNameSet)
+  /** Array of dark elixir spells in the army link. */
+  public get darkElixirSpells () {
+    return getWithNameFromSet(this._spells, darkElixirSpellNameSet)
   }
 
   /** Array of siege machines in the army link. */

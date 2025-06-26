@@ -167,12 +167,12 @@ console.log(armyLinkTwo.spells) // -> ArmyLinkSpell { name, count } [] | null
 
 // More data members:
 console.log(armyLinkTwo.troops)
-console.log(armyLinkTwo.elixerTroops)
-console.log(armyLinkTwo.darkElixerTroops)
+console.log(armyLinkTwo.elixirTroops)
+console.log(armyLinkTwo.darkElixirTroops)
 console.log(armyLinkTwo.superTroops)
 console.log(armyLinkTwo.siegeMachines)
-console.log(armyLinkTwo.elixerSpells)
-console.log(armyLinkTwo.darkElixerSpells)
+console.log(armyLinkTwo.elixirSpells)
+console.log(armyLinkTwo.darkElixirSpells)
 ```
 
 > You can create an army link with the `ArmyLink` class, or parse an existing army link from a URL. Add or remove troops and spells using the member functions `addUnit`, `removeUnit`, `addSpell`, and `removeSpell` (all parameters fully typed). You can also access the data members of the class to get information about the troops and spells in the army link.

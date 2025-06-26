@@ -155,15 +155,23 @@ const armyLinkOne = new ArmyLink()
   .addUnit('Archer', 25)
   .addUnit('Giant', 10)
   .addSpell('Lightning Spell', 2)
+  .addHero('Barbarian King', 'Giant Gauntlet', 'Rage Vial')
+  .addHero('Archer Queen', 'Giant Arrow')
+  .addClanCastleUnit('Archer', 10)
+  .addClanCastleUnit('Barbarian', 5)
+  .addClanCastleSpell('Lightning Spell', 1)
 
-console.log(armyLinkOne) // -> string 'https://link.clashofclans.com/en?action=CopyArmy&army=u50x0-25x1-10x3s2x0'
+console.log(armyLinkOne) // -> string 'https://link.clashofclans.com/en?action=CopyArmy&army=u50x0-25x1-10x3s2x0h0e10_1-1e17i10x1-5x0d1x0'
 
-// OR:
+// Or:
 
-const armyLinkTwo = new ArmyLink('https://link.clashofclans.com/en?action=CopyArmy&army=u50x0-25x1-10x3s2x0')
+const armyLinkTwo = new ArmyLink('https://link.clashofclans.com/en?action=CopyArmy&army=u50x0-25x1-10x3s2x0h0e10_1-1e17i10x1-5x0d1x0')
 
 console.log(armyLinkTwo.units) // -> ArmyLinkUnit { name, count } [] | null
 console.log(armyLinkTwo.spells) // -> ArmyLinkSpell { name, count } [] | null
+console.log(armyLinkTwo.heroes) // -> ArmyLinkHero { name, equipment } [] | null
+console.log(armyLinkTwo.clanCastleUnits) // -> ArmyLinkUnit[] | null
+console.log(armyLinkTwo.clanCastleSpells) // -> ArmyLinkSpell[] | null
 
 // More data members:
 console.log(armyLinkTwo.troops)
@@ -173,9 +181,15 @@ console.log(armyLinkTwo.superTroops)
 console.log(armyLinkTwo.siegeMachines)
 console.log(armyLinkTwo.elixirSpells)
 console.log(armyLinkTwo.darkElixirSpells)
+console.log(armyLinkTwo.clanCastleTroops)
+console.log(armyLinkTwo.clanCastleElixirTroops)
+console.log(armyLinkTwo.clanCastleDarkElixirTroops)
+console.log(armyLinkTwo.clanCastleElixirSpells)
+console.log(armyLinkTwo.clanCastleDarkElixirSpells)
+console.log(armyLinkTwo.clanCastleSiegeMachines)
 ```
 
-> You can create an army link with the `ArmyLink` class, or parse an existing army link from a URL. Add or remove troops and spells using the member functions `addUnit`, `removeUnit`, `addSpell`, and `removeSpell` (all parameters fully typed). You can also access the data members of the class to get information about the troops and spells in the army link.
+> You can create an army link with the `ArmyLink` class, or parse an existing army link from a URL. Add or remove troops and spells using the member functions `addUnit`, `removeUnit`, `addSpell`, and `removeSpell`, etc. (all parameters fully typed). You can also access the data members of the class to get information about the troops and spells in the army link.
 
 ### And there's even more...
 Use [clash.js](https://www.npmjs.com/package/clash.js) in your Clash of Clan's project workflow and let your intellisense thank you later!

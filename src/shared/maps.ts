@@ -137,3 +137,65 @@ export const armyLinkSpellMap = new Map([
 
 // @ts-ignore
 export const armyLinkSpellNameMap = new Map(armyLinkSpellMap.entries().map(([name, id]) => [id, name]))
+
+export const armyLinkHeroMap = new Map([
+  [ 'Barbarian King', 0 ],
+  [ 'Archer Queen', 1 ],
+  [ 'Grand Warden', 2 ],
+  [ 'Royal Champion', 4 ],
+  [ 'Minion Prince', 6 ]
+])
+
+// @ts-ignore
+export const armyLinkHeroNameMap = new Map(armyLinkHeroMap.entries().map(([name, id]) => [id, name]))
+
+export const armyLinkEquipmentMap = new Map([
+  [ 'Barbarian Puppet', 0 ],
+  [ 'Rage Vial', 1 ],
+  [ 'Archer Puppet', 2 ],
+  [ 'Invisibility Vial', 3 ],
+  [ 'Eternal Tome', 4 ],
+  [ 'Life Gem', 5 ],
+  [ 'Seeking Shield', 6 ],
+  [ 'Royal Gem', 7 ],
+  [ 'Earthquake Boots', 8 ],
+  [ 'Giant Gauntlet', 10 ],
+  [ 'Vampstache', 11 ],
+  [ 'Giant Arrow', 17 ],
+  [ 'Healer Puppet', 20 ],
+  [ 'Fireball', 22 ],
+  [ 'Rage Gem', 24 ],
+  [ 'Healing Tome', 34 ],
+  [ 'Dark Crown', 35 ],
+  [ 'Henchment Puppet', 42 ],
+  [ 'Dark Orb', 43 ],
+  [ 'Metal Pants', 44 ],
+  [ 'Noble Iron', 47 ]
+])
+
+// @ts-ignore
+export const armyLinkEquipmentNameMap = new Map(armyLinkEquipmentMap.entries().map(([name, id]) => [id, name]))
+
+export const armyLinkEquipmentToHeroNameMap = new Map([
+  [ 'Barbarian Puppet', 'Barbarian King' ],
+  [ 'Rage Vial', 'Barbarian King' ],
+  [ 'Earthquake Boots', 'Barbarian King' ],
+  [ 'Giant Gauntlet', 'Barbarian King' ],
+  [ 'Vampstache', 'Barbarian King' ],
+  [ 'Archer Puppet', 'Archer Queen' ],
+  [ 'Invisibility Vial', 'Archer Queen' ],
+  [ 'Healer Puppet', 'Archer Queen' ],
+  [ 'Giant Arrow', 'Archer Queen' ],
+  [ 'Eternal Tome', 'Grand Warden' ],
+  [ 'Life Gem', 'Grand Warden' ],
+  [ 'Fireball', 'Grand Warden' ],
+  [ 'Rage Gem', 'Grand Warden' ],
+  [ 'Healing Time', 'Grand Warden' ],
+  [ 'Seeking Shield', 'Royal Champion' ],
+  [ 'Royal Gem', 'Royal Champion' ],
+  [ 'Dark Crown', 'Minion Prince' ],
+  [ 'Henchmen Puppet', 'Minion Prince' ],
+  [ 'Dark Orb', 'Minion Prince' ],
+  [ 'Metal Pants', 'Minion Prince' ],
+  [ 'Noble Iron', 'Minion Prince' ]
+])

@@ -2,6 +2,11 @@ export const BASE_URL = 'https://api.clashofclans.com/v1'
 export const DEV_URL = 'https://developer.clashofclans.com/api'
 export const ARMY_LINK_URL = 'https://link.clashofclans.com/en?action=CopyArmy'
 export const ARMY_LINK_URL_REGEX = /(https:\/\/link\.clashofclans\.com\/en\?action=CopyArmy.+)/g
-export const ARMY_LINK_ENTRY_REGEX = /([\d]+)x([\d]+)-?/g
-export const ARMY_LINK_UNIT_REGEX = /u([\d+x-]+)/g
-export const ARMY_LINK_SPELL_REGEX = /s([\d+x-]+)/g
+export const ARMY_LINK_UNIT_OR_SPELL_REGEX = /([\d]+)x([\d]+)-?/g
+export const ARMY_LINK_UNIT_GROUP_REGEX = /u([\d+x-]+)/g
+export const ARMY_LINK_SPELL_GROUP_REGEX = /s([\d+x-]+)/g
+export const ARMY_LINK_HERO_GROUP_REGEX = /h([\de_+x-]+)/g
+export const ARMY_LINK_HERO_REGEX = /(\d+(?:e\d+(?:_\d+)?)?)-?/g
+export const ARMY_LINK_EQUIPMENT_GROUP_REGEX = /e(\d+(?:_\d+)?)-?/g
+export const ARMY_LINK_CLAN_CASTLE_UNITS_REGEX = /i([\d+x-]+)/g
+export const ARMY_LINK_CLAN_CASTLE_SPELLS_REGEX = /d([\d+x-]+)/g

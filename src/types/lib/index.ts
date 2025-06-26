@@ -1,4 +1,6 @@
 export * from './AchievementName'
+export * from './ArmyLinkEquipmentName'
+export * from './ArmyLinkHeroName'
 export * from './ArmyLinkUnitName'
 export * from './ArmyLinkSpellName'
 export * from './BuilderHallLevel'

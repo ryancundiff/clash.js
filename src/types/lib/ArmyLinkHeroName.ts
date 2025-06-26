@@ -1,0 +1,5 @@
+export type ArmyLinkHeroName = 'Barbarian King'
+  | 'Archer Queen'
+  | 'Grand Warden'
+  | 'Royal Champion'
+  | 'Minion Prince'

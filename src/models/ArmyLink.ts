@@ -2,13 +2,18 @@ import util from 'node:util'
 
 import { ArmyLinkUnit } from './ArmyLinkUnit'
 import { ArmyLinkSpell } from './ArmyLinkSpell'
+import { ArmyLinkHero } from './ArmyLinkHero'
+import { ArmyLinkEquipment } from './ArmyLinkEquipment'
 
 import {
   ARMY_LINK_URL,
   ARMY_LINK_URL_REGEX,
-  ARMY_LINK_ENTRY_REGEX,
-  ARMY_LINK_UNIT_REGEX,
-  ARMY_LINK_SPELL_REGEX,
+  ARMY_LINK_UNIT_OR_SPELL_REGEX,
+  ARMY_LINK_UNIT_GROUP_REGEX,
+  ARMY_LINK_SPELL_GROUP_REGEX,
+  ARMY_LINK_HERO_GROUP_REGEX,
+  ARMY_LINK_EQUIPMENT_GROUP_REGEX,
+  ARMY_LINK_HERO_REGEX,
   armyLinkUnitNameMap,
   armyLinkSpellNameMap,
   armyLinkUnitMap,
@@ -18,7 +23,14 @@ import {
   elixirSpellNameSet,
   darkElixirSpellNameSet,
   superTroopNameSet,
-  siegeMachineNameSet
+  siegeMachineNameSet,
+  armyLinkHeroNameMap,
+  armyLinkEquipmentNameMap,
+  armyLinkHeroMap,
+  armyLinkEquipmentMap,
+  armyLinkEquipmentToHeroNameMap,
+  ARMY_LINK_CLAN_CASTLE_UNITS_REGEX,
+  ARMY_LINK_CLAN_CASTLE_SPELLS_REGEX
 } from '../shared'
 
 import {
@@ -27,34 +39,91 @@ import {
 
 import {
   ArmyLinkUnitName,
-  ArmyLinkSpellName
+  ArmyLinkSpellName,
+  ArmyLinkEquipmentName,
+  ArmyLinkHeroName
 } from '../types'
 
 export class ArmyLink extends String {
-  private readonly _units: ArmyLinkUnit[] = []
-  private readonly _spells: ArmyLinkSpell[] = []
+  private _clanCastleUnits: ArmyLinkUnit[] = []
+  private _clanCastleSpells: ArmyLinkSpell[] = []
+  private _heroes: ArmyLinkHero[] = []
+  private _units: ArmyLinkUnit[] = []
+  private _spells: ArmyLinkSpell[] = []
 
   constructor (link?: string) {
     super()
 
     if (link && ARMY_LINK_URL_REGEX.test(link)) {
-      const unitPart = link.match(ARMY_LINK_UNIT_REGEX)?.[0]?.replace('u', '')
-      const spellPart = link.match(ARMY_LINK_SPELL_REGEX)?.[0]?.replace('s', '')
+      const clanCastleUnitPart = link.match(ARMY_LINK_CLAN_CASTLE_UNITS_REGEX)?.[0]?.replace('i', '')
+      const clanCastleSpellPart = link.match(ARMY_LINK_CLAN_CASTLE_SPELLS_REGEX)?.[0]?.replace('d', '')
+      const heroPart = link.match(ARMY_LINK_HERO_GROUP_REGEX)?.[0]?.replace('h', '')
+      const unitPart = link.match(ARMY_LINK_UNIT_GROUP_REGEX)?.[0]?.replace('u', '')
+      const spellPart = link.match(ARMY_LINK_SPELL_GROUP_REGEX)?.[0]?.replace('s', '')
+
+      if (clanCastleUnitPart)
+        // @ts-ignore
+        clanCastleUnitPart?.matchAll(ARMY_LINK_UNIT_OR_SPELL_REGEX).forEach((match) => {
+          if (armyLinkUnitNameMap.has(parseInt(match[2])))
+            this._clanCastleUnits.push(new ArmyLinkUnit(armyLinkUnitNameMap.get(parseInt(match[2])) as ArmyLinkUnitName, parseInt(match[1])))
+        })
+
+      if (clanCastleSpellPart)
+        // @ts-ignore
+        clanCastleSpellPart?.matchAll(ARMY_LINK_UNIT_OR_SPELL_REGEX).forEach((match) => {
+          if (armyLinkSpellNameMap.has(parseInt(match[2])))
+            this._clanCastleSpells.push(new ArmyLinkSpell(armyLinkSpellNameMap.get(parseInt(match[2])) as ArmyLinkSpellName, parseInt(match[1])))
+        })
+
+      if (heroPart)
+        // @ts-ignore
+        heroPart?.matchAll(ARMY_LINK_HERO_REGEX).forEach((match) => {
+          const heroID = parseInt(match[1].split('e')[0] ?? match[1])
+
+          if (armyLinkHeroNameMap.has(heroID)) {
+            const equipment: ArmyLinkEquipment[] = []
+            const equipmentPart = match[1].match(ARMY_LINK_EQUIPMENT_GROUP_REGEX)?.[0]?.replace('e', '')?.split('_')
+
+            if (equipmentPart) {
+              for (const equipmentId of equipmentPart) {
+                if (armyLinkEquipmentNameMap.has(parseInt(equipmentId)))
+                  equipment.push(new ArmyLinkEquipment(armyLinkEquipmentNameMap.get(parseInt(equipmentId)) as ArmyLinkEquipmentName))
+              }
+            }
+
+            this._heroes.push(new ArmyLinkHero(armyLinkHeroNameMap.get(heroID) as ArmyLinkHeroName, equipment))
+          }
+        })
 
       if (unitPart)
         // @ts-ignore
-        unitPart?.matchAll(ARMY_LINK_ENTRY_REGEX).forEach((match) => {
+        unitPart?.matchAll(ARMY_LINK_UNIT_OR_SPELL_REGEX).forEach((match) => {
           if (armyLinkUnitNameMap.has(parseInt(match[2])))
             this._units.push(new ArmyLinkUnit(armyLinkUnitNameMap.get(parseInt(match[2])) as ArmyLinkUnitName, parseInt(match[1])))
         })
 
       if (spellPart)
         // @ts-ignore
-        spellPart?.matchAll(ARMY_LINK_ENTRY_REGEX).forEach((match) => {
+        spellPart?.matchAll(ARMY_LINK_UNIT_OR_SPELL_REGEX).forEach((match) => {
           if (armyLinkSpellNameMap.has(parseInt(match[2])))
             this._spells.push(new ArmyLinkSpell(armyLinkSpellNameMap.get(parseInt(match[2])) as ArmyLinkSpellName, parseInt(match[1])))
         })
     }
+  }
+
+  /** Array of clan castle units in the army link. */
+  public get clanCastleUnits () {
+    return this._clanCastleUnits.length > 0 ? this._clanCastleUnits : null
+  }
+
+  /** Array of clan castle spells in the army link. */
+  public get clanCastleSpells () {
+    return this._clanCastleSpells.length > 0 ? this._clanCastleSpells : null
+  }
+
+  /** Array of heroes in the army link. */
+  public get heroes () {
+    return this._heroes.length > 0 ? this._heroes : null
   }
 
   /** Array of units in the army link. */
@@ -65,6 +134,58 @@ export class ArmyLink extends String {
   /** Array of spells in the army link. */
   public get spells () {
     return this._spells.length > 0 ? this._spells : null
+  }
+
+  /** Array of clan castle troops in the army link. */
+  public get clanCastleTroops () {
+    const troops = []
+    const elixirTroops = this.clanCastleElixirTroops
+    const darkElixirTroops = this.clanCastleDarkElixirTroops
+    const superTroops = this.clanCastleSuperTroops
+
+    if (elixirTroops && elixirTroops.length > 0)
+      troops.push(...elixirTroops)
+
+    if (darkElixirTroops && darkElixirTroops.length > 0)
+      troops.push(...darkElixirTroops)
+
+    if (superTroops && superTroops.length > 0)
+      troops.push(...superTroops)
+
+    if (troops.length === 0)
+      return null
+
+    return troops
+  }
+
+  /** Array of elixir troops in the clan castle. */
+  public get clanCastleElixirTroops () {
+    return getWithNameFromSet(this._clanCastleUnits, elixirTroopNameSet)
+  }
+
+  /** Array of dark elixir troops in the clan castle. */
+  public get clanCastleDarkElixirTroops () {
+    return getWithNameFromSet(this._clanCastleUnits, darkElixirTroopNameSet)
+  }
+
+  /** Array of super troops in the clan castle. */
+  public get clanCastleSuperTroops () {
+    return getWithNameFromSet(this._clanCastleUnits, superTroopNameSet)
+  }
+
+  /** Array of clan castle elixir spells in the army link. */
+  public get clanCastleElixirSpells () {
+    return getWithNameFromSet(this._clanCastleSpells, elixirSpellNameSet)
+  }
+
+  /** Array of clan castle dark elixir spells in the army link. */
+  public get clanCastleDarkElixirSpells () {
+    return getWithNameFromSet(this._clanCastleSpells, darkElixirSpellNameSet)
+  }
+
+  /** Array of clan castle siege machines in the army link. */
+  public get clanCastleSiegeMachines () {
+    return getWithNameFromSet(this._clanCastleUnits, siegeMachineNameSet)
   }
 
   /** Array of troops in the army link. */
@@ -124,7 +245,7 @@ export class ArmyLink extends String {
    * @param unitOrSpellName The name of the unit or spell.
    * @param count The number of units or spells.
   */
-  public add (unitOrSpellName: ArmyLinkUnitName | ArmyLinkSpellName, count: number): this {
+  public add (unitOrSpellName: ArmyLinkUnitName | ArmyLinkSpellName, count: number) {
     if (armyLinkUnitMap.has(unitOrSpellName)) {
       return this.addUnit(unitOrSpellName as ArmyLinkUnitName, count)
     }
@@ -136,7 +257,7 @@ export class ArmyLink extends String {
    * Removes a unit or spell from the army link.
    * @param unitOrSpellName The name of the unit or spell to remove.
   */
-  public remove (unitOrSpellName: ArmyLinkUnitName | ArmyLinkSpellName): this {
+  public remove (unitOrSpellName: ArmyLinkUnitName | ArmyLinkSpellName) {
     if (armyLinkUnitMap.has(unitOrSpellName)) {
       return this.removeUnit(unitOrSpellName as ArmyLinkUnitName)
     } else if (armyLinkSpellMap.has(unitOrSpellName)) {
@@ -147,11 +268,132 @@ export class ArmyLink extends String {
   }
 
   /**
+   * Adds a clan castle unit to the army link.
+   * @param unitName The name of the unit.
+   * @param count The number of units.
+  */
+  public addClanCastleUnit (unitName: ArmyLinkUnitName, count: number) {
+    if (armyLinkUnitMap.has(unitName)) {
+      this._clanCastleUnits.push(new ArmyLinkUnit(unitName, count))
+    }
+
+    return this
+  }
+
+  /**
+   * Removes a clan castle unit from the army link.
+   * @param unitName The name of the unit to remove.
+  */
+  public removeClanCastleUnit (unitName: ArmyLinkUnitName) {
+    for (const unit of this._clanCastleUnits) {
+      if (unit.name === unitName) {
+        this._clanCastleUnits.splice(this._clanCastleUnits.indexOf(unit), 1)
+        break
+      }
+    }
+
+    return this
+  }
+
+  /**
+   * Adds a clan castle spell to the army link.
+   * @param spellName The name of the spell.
+   * @param count The number of spells.
+  */
+  public addClanCastleSpell (spellName: ArmyLinkSpellName, count: number) {
+    if (armyLinkSpellMap.has(spellName)) {
+      this._clanCastleSpells.push(new ArmyLinkSpell(spellName, count))
+    }
+
+    return this
+  }
+
+  /**
+   * Removes a clan castle spell from the army link.
+   * @param spellName The name of the spell to remove.
+  */
+  public removeClanCastleSpell (spellName: ArmyLinkSpellName) {
+    for (const spell of this._clanCastleSpells) {
+      if (spell.name === spellName) {
+        this._clanCastleSpells.splice(this._clanCastleSpells.indexOf(spell), 1)
+        break
+      }
+    }
+
+    return this
+  }
+
+  /**
+   * Adds a hero to the army link.
+   * @param heroName The name of the hero.
+   * @param equipment Array of equipment equipped by the hero, if any.
+  */
+  public addHero (heroName: ArmyLinkHeroName, ...equipment: ArmyLinkEquipmentName[]) {
+    if (this._heroes.length == 4 && this._heroes.find(hero => hero.name === heroName) === undefined) {
+      return this
+    }
+
+    if (armyLinkHeroMap.has(heroName)) {
+      this._heroes.push(new ArmyLinkHero(heroName, equipment.filter(equipmentName => armyLinkEquipmentMap.has(equipmentName)).map(equipmentName => new ArmyLinkEquipment(equipmentName))))
+    }
+
+    return this
+  }
+
+  /**
+   * Removes a hero from the army link.
+   * @param heroName The name of the hero to remove.
+  */
+  public removeHero (heroName: ArmyLinkHeroName) {
+    this._heroes = this._heroes.filter(hero => hero.name !== heroName)
+
+    return this
+  }
+
+  /**
+   * Adds equipment to a hero in the army link.
+   * @param heroName The name of the hero.
+   * @param equipmentName The name of the equipment to add.
+  */
+  public addEquipment (equipmentName: ArmyLinkEquipmentName) {
+    const heroName = armyLinkEquipmentToHeroNameMap.get(equipmentName)
+
+    if (heroName && armyLinkEquipmentMap.has(equipmentName) && armyLinkHeroMap.has(heroName)) {
+      const hero = this._heroes.find(hero => hero.name === heroName)
+
+      if (hero) {
+        hero.addEquipment(equipmentName)
+      }
+    }
+
+    return this
+  }
+
+  /**
+   * Removes equipment from a hero in the army link.
+   * @param heroName The name of the hero.
+   * @param equipmentName The name of the equipment to remove.
+  */
+  public removeEquipment (equipmentName: ArmyLinkEquipmentName) {
+    const heroName = armyLinkEquipmentToHeroNameMap.get(equipmentName)
+
+    if (heroName && armyLinkEquipmentMap.has(equipmentName) && armyLinkHeroMap.has(heroName)) {
+      const hero = this._heroes.find(hero => hero.name === heroName)
+
+      if (hero) {
+        hero.removeEquipment(equipmentName)
+      }
+    }
+
+    return this
+  }
+
+  /**
    * Adds a unit to the army link.
    * @param unit The name of the unit.
    * @param count The number of units.
   */
-  public addUnit (unitName: ArmyLinkUnitName, count: number): this {
+  public addUnit (unitName: ArmyLinkUnitName, count: number) {
     if (armyLinkUnitMap.has(unitName))
       this._units.push(new ArmyLinkUnit(unitName, count))
 
@@ -162,7 +404,7 @@ export class ArmyLink extends String {
    * Removes a unit from the army link.
    * @param unitName The name of the unit to remove.
   */
-  public removeUnit (unitName: ArmyLinkUnitName): this {
+  public removeUnit (unitName: ArmyLinkUnitName) {
     for (const unit of this._units) {
       if (unit.name === unitName) {
         this._units.splice(this._units.indexOf(unit), 1)
@@ -178,7 +420,7 @@ export class ArmyLink extends String {
    * @param spell The name of the spell.
    * @param count The number of spells.
   */
-  public addSpell (spellName: ArmyLinkSpellName, count: number): this {
+  public addSpell (spellName: ArmyLinkSpellName, count: number) {
     if (armyLinkSpellMap.has(spellName))
       this._spells.push(new ArmyLinkSpell(spellName, count))
 
@@ -189,7 +431,7 @@ export class ArmyLink extends String {
    * Removes a spell from the army link.
    * @param spellName The name of the spell to remove.
   */
-  public removeSpell (spellName: ArmyLinkSpellName): this {
+  public removeSpell (spellName: ArmyLinkSpellName) {
     for (const spell of this._spells) {
       if (spell.name === spellName) {
         this._spells.splice(this._spells.indexOf(spell), 1)
@@ -200,15 +442,18 @@ export class ArmyLink extends String {
     return this
   }
 
-  private build (): string {
+  private build () {
     if (this._units.length === 0 && this._spells.length === 0) {
       return ARMY_LINK_URL
     }
 
+    const clanCastleUnitPart = this._clanCastleUnits.length > 0 ? `i${this._clanCastleUnits.map(unit => unit.toString()).join('-')}` : ''
+    const clanCastleSpellPart = this._clanCastleSpells.length > 0 ? `d${this._clanCastleSpells.map(spell => spell.toString()).join('-')}` : ''
+    const heroPart = this._heroes.length > 0 ? `h${this._heroes.map(hero => hero.toString()).join('-')}` : ''
     const unitPart = this._units.length > 0 ? `u${this._units.map(unit => unit.toString()).join('-')}` : ''
     const spellPart = this._spells.length > 0 ? `s${this._spells.map(spell => spell.toString()).join('-')}` : ''
 
-    return `${ARMY_LINK_URL}&army=${unitPart}${spellPart}`
+    return `${ARMY_LINK_URL}&army=${unitPart}${spellPart}${heroPart}${clanCastleUnitPart}${clanCastleSpellPart}`
   }
 
   override toString () {

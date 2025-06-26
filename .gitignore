@@ -7,3 +7,6 @@
 
 # Testing directory:
 src/test
+
+# TypeScript configuration files:
+tsconfig.tsbuildinfo

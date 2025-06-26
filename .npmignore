@@ -3,6 +3,7 @@ src
 
 # TypeScript configuration file:
 tsconfig.json
+tsconfig.tsbuildinfo
 
 # Testing directories:
 dist/test

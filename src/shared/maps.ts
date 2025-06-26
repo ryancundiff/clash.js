@@ -139,11 +139,12 @@ export const armyLinkSpellMap = new Map([
 export const armyLinkSpellNameMap = new Map(armyLinkSpellMap.entries().map(([name, id]) => [id, name]))
 
 export const armyLinkHeroMap = new Map([
-  [ 'Barbarian King', 0 ],
-  [ 'Archer Queen', 1 ],
-  [ 'Grand Warden', 2 ],
-  [ 'Royal Champion', 4 ],
-  [ 'Minion Prince', 6 ]
+  [ 'Barbarian King', '0' ],
+  [ 'Archer Queen', '1' ],
+  [ 'Grand Warden', '2' ],
+  [ 'Flying Grand Warden', '2m1' ],
+  [ 'Royal Champion', '4' ],
+  [ 'Minion Prince', '6' ]
 ])
 
 // @ts-ignore
@@ -190,7 +191,7 @@ export const armyLinkEquipmentToHeroNameMap = new Map([
   [ 'Life Gem', 'Grand Warden' ],
   [ 'Fireball', 'Grand Warden' ],
   [ 'Rage Gem', 'Grand Warden' ],
-  [ 'Healing Time', 'Grand Warden' ],
+  [ 'Healing Tome', 'Grand Warden' ],
   [ 'Seeking Shield', 'Royal Champion' ],
   [ 'Royal Gem', 'Royal Champion' ],
   [ 'Dark Crown', 'Minion Prince' ],
@@ -198,4 +199,8 @@ export const armyLinkEquipmentToHeroNameMap = new Map([
   [ 'Dark Orb', 'Minion Prince' ],
   [ 'Metal Pants', 'Minion Prince' ],
   [ 'Noble Iron', 'Minion Prince' ]
+])
+
+export const armyLinkModifierToHeroNameMap = new Map([
+  [ 'Flying', 'Grand Warden' ]
 ])

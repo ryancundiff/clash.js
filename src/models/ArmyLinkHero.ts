@@ -15,7 +15,7 @@ export class ArmyLinkHero {
 
   constructor (name: ArmyLinkHeroName, equipment: ArmyLinkEquipment[] = []) {
     this.name = name
-    this._equipment = equipment.filter(equipment => armyLinkEquipmentToHeroNameMap.get(equipment.name) === name)
+    this._equipment = equipment.filter(equipment => armyLinkEquipmentToHeroNameMap.get(equipment.name) === (name == 'Flying Grand Warden' ? 'Grand Warden' : name))
   }
 
   /** Array of equipment equipped by hero in army link, if any. */

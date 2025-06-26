@@ -78,7 +78,7 @@ export class ArmyLink extends String {
       if (heroPart)
         // @ts-ignore
         heroPart?.matchAll(ARMY_LINK_HERO_REGEX).forEach((match) => {
-          const heroID = parseInt(match[1].split('e')[0] ?? match[1])
+          const heroID = match[1].split('e')[0] ?? match[1]
 
           if (armyLinkHeroNameMap.has(heroID)) {
             const equipment: ArmyLinkEquipment[] = []
